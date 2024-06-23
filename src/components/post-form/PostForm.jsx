@@ -63,6 +63,8 @@ function PostForm({ post }) {
     // we watch title and when title changes then we call slugTransform
     const slugTransform = useCallback((value) => {
         if (value && (typeof value === 'string')) {
+            // we us slug as document id and document id must be less then 36 chars therefore:
+            // if(value.length > 35) value = value.slice(0,34) + "-";
 
             // approach 1:
             // const slug = value.toLowerCase().replace(/ /g,'-')
@@ -97,19 +99,19 @@ function PostForm({ post }) {
 
 
     return (
-        <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
+        <form onSubmit={handleSubmit(submit)} className="flex flex-wrap flex-col  sm:flex-row sm:gap-0 gap-5">
             {/* left part */}
-            <div className="w-2/3 px-2">
+            <div className="sm:w-2/3 px-2">
                 <Input
                     label="Title :"
                     placeholder="Title"
-                    className="mb-4"
+                    className="mb-4 w-full text-lg py-1 px-2 rounded outline-none "
                     {...register("title", { required: true })}
                 />
                 <Input
                     label="Slug :"
                     placeholder="Slug"
-                    className="mb-4"
+                    className="mb-4 w-full text-lg py-1 px-2 rounded outline-none"
                     {...register("slug", { required: true })}
                     onInput={(e) => {
                         setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
@@ -118,7 +120,7 @@ function PostForm({ post }) {
                 <RTE label="Content :" name="content" control={control} defaultValue={getValues("content")} />
             </div>
             {/* right part */}
-            <div className="w-1/3 px-2">
+            <div className="sm:w-1/3 px-2">
                 <Input
                     label="Featured Image :"
                     type="file"

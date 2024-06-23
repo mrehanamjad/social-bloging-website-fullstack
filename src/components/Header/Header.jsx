@@ -3,6 +3,7 @@ import { Container, Logo, LogoutBtn } from '../index'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
+
 function Header() {
 
   const authStatus = useSelector((state) => state.auth.status)
@@ -36,7 +37,7 @@ function Header() {
   ]
 
   return (
-    <header className='py-3 shadow bg-gray-500'>
+    <header className='py-3 shadow-lg shadow-gray-400 bg-white sticky top-0 z-50'>
       <Container>
         <nav className='flex'>
           <div>

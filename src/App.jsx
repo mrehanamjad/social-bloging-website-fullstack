@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import './App.css'
 import { useDispatch } from 'react-redux'
 import conf from './conf/conf'
 import authService from './appwrite/auth'
@@ -8,7 +7,6 @@ import { Outlet } from 'react-router-dom'
 import { Footer, Header } from './components'
 
 function App() {
-  // console.log(conf.appwriteProjectId);
   const [loading, setLoading] = useState(true)
   const dispach = useDispatch()
 
@@ -30,17 +28,17 @@ function App() {
 
 
   return !loading ? (
-    <div className='min-h-screen flex flex-wrap content-between bg-gray-500'>
+    <div className='min-h-screen flex flex-wrap content-between bg-gray-200 scroll-smooth'>
       <div className="w-full block">
         <Header />
         <main>
-        TODO:  <Outlet />
+          <Outlet />
         </main>
         <Footer />
       </div>
     </div>
   ) : null
-  
+
 }
 
 export default App
