@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, PostCard, Button } from '../components'
+import { Container, PostCard, Button, CardCarousel } from '../components'
 import appwriteService from '../appwrite/config'
 import { useSelector } from 'react-redux';
 //👆 we can change name if it is expost default: in ../../appwrite/aut.js we have export default sevices but here we import  appwriteService.
@@ -32,16 +32,19 @@ function Home() {
 
     return (
         <div className='w-full pb-8'>
-            <div className='h-screen w-full bg-cover bg-center bg-fixed' style={{ backgroundImage: `url("https://images.pexels.com/photos/573241/pexels-photo-573241.jpeg?auto=compress&cs=tinysrgb&w=600")` }} >
-                <div className='w-full h-full bg-black/35 flex flex-col justify-center sm:text-start  text-center  gap-8 px-8 '>
-                    <h1 className='text-5xl md:text-8xl lg:text-9xl scroll font-extrabold text-white'>Welcome to <code>NextMedium</code></h1>
-                    <h2 className='text-3xl lg:font-bold font-semibold text-white sm:self-end sm:text-end'>Discover, read, and share your stories with the world.</h2>
-                    <div className='flex gap-3 ml-3'>
-                        <Button className='hover:bg-transparent border-2 border-blue-600'>Get Started</Button>
-                        <Button className='border-2 border-blue-600 hover:bg-blue-600' bgColor='bg-transparent '>Explore Now</Button>
+            <div className='h-screen w-full bg-cover bg-center bg-fixed' style={{ backgroundImage: `url("https://images.unsplash.com/photo-1500989145603-8e7ef71d639e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzV8fHdyaXRpbmd8ZW58MHx8MHx8fDA%3D")` }} >
+                <div className='w-full h-full bg-black/35 flex flex-col justify-center items-center  text-center  gap-8 px-8 '>
+                    <h1 className='text-5xl md:text-8xl lg:text-7xl scroll font-extrabold text-gray-800 mb-2'>Welcome to <code className='text-blue-700 bg-white p-2 rounded-md'>NextMedium</code></h1>
+                    <h2 className='text-3xl lg:font-bold font-semibold text-white '>Discover, read, and share your stories with the world.</h2>
+                    <div className='flex gap-3 '>
+                        <Button className='hover:bg-transparent border-2 border-blue-600'>Start Writing</Button>
+                        <Button className='border-2 border-blue-600 hover:bg-blue-600' bgColor='bg-transparent '>Reacd What Other Posted</Button>
                     </div>
                 </div>
             </div>
+
+            <CardCarousel />
+
             {!status && posts.length === 0 ?(<div className="w-full py-8 mt-4 text-center">
                 <Container>
                     <div className="flex flex-wrap">
@@ -53,10 +56,10 @@ function Home() {
                     </div>
                 </Container>
             </div>) : (<Container>
-                <h1>Posts: </h1>
+                <h1 className='font-bold text-3xl text-center my-6'>Posts: </h1>
                 <div className='flex flex-wrap'>
                     {posts.length > 0 ? posts.map((post) => (
-                        <div key={post.$id} className='p-2 w-1/4'>
+                        <div key={post.$id} className='p-2 sm:w-1/4'>
                             <PostCard {...post} />
                         </div>
                     )) : (<p className='text-center text-3xl w-full'>Loading Posts ...</p>)}
