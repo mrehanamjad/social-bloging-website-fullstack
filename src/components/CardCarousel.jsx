@@ -1,72 +1,99 @@
-// import React from 'react'
-// import {CategoryCard} from '.'
-// import { FaArrowAltCircleRight, FaArrowCircleLeft } from "react-icons/fa";
-
-
-// function CardCarousel() {
-    
-//     const next = () => {
-        
-//     }
-
-//   return (
-//     <div className='h-screen w-full bg-cover bg-center bg-fixed flex items-center justify-center' style={{ backgroundImage: `url("https://images.unsplash.com/photo-1530533718754-001d2668365a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")` }} >
-//         <FaArrowCircleLeft className='text-white text-3xl' />
-//     <div className='w-full h-full bg-black/35 flex  items-center  text-center  gap-4 overflow-x-auto'>
-//         <CategoryCard />
-//         <CategoryCard className='bg-red-700' />
-//         <CategoryCard className='bg-orange-700' />
-//         <CategoryCard className='bg-blue-700' />
-//         <CategoryCard className='bg-green-700' />
-//         <CategoryCard className='bg-yellow-700' />
-//         </div>
-//         <FaArrowAltCircleRight  onClick={next} className='text-white text-3xl'  />
-// </div>
-//   )
-// }
-
-// export default CardCarousel
-
-
-
-
-
-import React, { useRef } from 'react';
-import { CategoryCard } from '.';
-import { FaArrowCircleRight, FaArrowCircleLeft } from "react-icons/fa";
-
+import React, { useRef, useState, useEffect } from 'react'
+import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from 'react-icons/bs';
 function CardCarousel() {
-  const containerRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const selectRef = useRef(null);
+  const [carousalValues, setCarousalValues] = useState({ cardWidth: 0, totalCards: 0, gap: 0, scrollableWidth: 0 });
 
-  const scrollRight = () => {
-    if (containerRef.current) {
-      containerRef.current.scrollLeft += 200; // Scroll right by 100 pixels
-    }
-  };
+  const CategoryCardData = [
+    {
+      text:'Technology',
+      className:'bg-right',
+      bgImg:'https://cdn.pixabay.com/photo/2023/01/20/19/48/chip-7732459_1280.png',
+    },
+    {
+      text:'Life & Culture',
+      className:'',
+      bgImg:'https://cdn.pixabay.com/photo/2020/05/29/15/31/lantern-5235537_1280.jpg',
+    },
+    {
+      text:'Business & Finance',
+      className:'',
+      bgImg:'https://cdn.pixabay.com/photo/2020/02/18/08/35/finance-4858797_1280.jpg',
+    },
+    {
+      text:'Health & Fitness',
+      className:'',
+      bgImg:'https://images.pexels.com/photos/2803158/pexels-photo-2803158.jpeg?auto=compress&cs=tinysrgb&w=600',
+    },
+    {
+      text:'Creative Writing',
+      className:'',
+      bgImg:'https://images.pexels.com/photos/5554771/pexels-photo-5554771.jpeg?auto=compress&cs=tinysrgb&w=600',
+    },
+    {
+      text:'Travel & Adventure',
+      className:'',
+      bgImg:'https://cdn.pixabay.com/photo/2017/08/07/23/50/climbing-2609319_1280.jpg',
+    },
+    {
+      text:'Food & Cooking',
+      className:'',
+      bgImg:'https://cdn.pixabay.com/photo/2014/08/14/14/21/shish-kebab-417994_1280.jpg',
+    },
+    {
+      text:'Entertainment & Sports Media',
+      className:'',
+      bgImg:'https://images.pexels.com/photos/5022810/pexels-photo-5022810.jpeg?auto=compress&cs=tinysrgb&w=600',
+    },
+    {
+      text:'Self-Improvement',
+      className:'',
+      bgImg:'https://images.pexels.com/photos/5206052/pexels-photo-5206052.jpeg?auto=compress&cs=tinysrgb&w=600',
+    },
+  ]
 
-  const scrollLeft = () => {
-    if (containerRef.current) {
-      containerRef.current.scrollLeft -= 200; // Scroll left by 100 pixels
+  useEffect(() => {
+    if (selectRef.current) {
+      const cardWidth = selectRef.current.querySelector('.CategoryCard').offsetWidth;
+      const totalCards = selectRef.current.querySelectorAll('.CategoryCard').length;
+      const gap = 20;
+      const scrollableWidth = (cardWidth + gap) * totalCards;
+      setCarousalValues({ cardWidth, totalCards, gap, scrollableWidth });
     }
-  };
+  }, [selectRef.current]);
+
+
+  useEffect(() => {updateCarousal()}, [setCurrentIndex, currentIndex])
+  const updateCarousal = () => selectRef.current.style.transform = `translateX(-${currentIndex * (carousalValues.cardWidth + carousalValues.gap)}px)`;
+  const prev = () => currentIndex > 0 && setCurrentIndex(prev => prev - 1);
+  const next = () => currentIndex < carousalValues.totalCards - 1 && setCurrentIndex(prev => prev + 1);
 
   return (
-    <div className='h-screen w-full bg-cover bg-center bg-fixed flex flex-col gap-6 items-center justify-center text-white' style={{ backgroundImage: `url("https://images.unsplash.com/photo-1530533718754-001d2668365a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")` }} >
-        <h1 className='font-bold text-4xl'>Categories</h1>
-      <div ref={containerRef} className='w-full   flex items-center  text-center gap-4 overflow-hidden px-8'>
-        <CategoryCard  text='Artifitial Intelligence' bgImg='https://cdn.pixabay.com/photo/2024/04/09/16/30/ai-generated-8686301_1280.jpg' />
-        <CategoryCard  text='Tech' bgImg='https://images.pexels.com/photos/256381/pexels-photo-256381.jpeg?auto=compress&cs=tinysrgb&w=600'/>
-        <CategoryCard  text='Bussiness & Finance' bgImg='https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=600'/>
-        <CategoryCard  text=''/>
-        <CategoryCard />
-        <CategoryCard />
+    <div
+      className='bg-sky-700 w-full bg-cover bg-center bg-fixed flex flex-col justify-center items-center text-white'
+      style={{
+        backgroundImage: `url("https://images.unsplash.com/photo-1530533718754-001d2668365a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")`,
+      }}
+    >
+      <h2 className='text-4xl md:text-6xl lg:text-7xl font-bold py-8'>Catrgories:</h2>
+      <div className=' h-96 w-11/12 max-sm:w-full flex items-center justify-between gap-9 px-6 mx-auto'>
+        <BsArrowLeftCircleFill onClick={prev} className='text-5xl cursor-pointer hover:text-blue-600' />
+        <div className={`w-3/4 min-w-56 overflow-hidden`}>
+          <div ref={selectRef} className='h-96 w-full transition-transform duration-500 ease-in-out flex items-center'>
+            {CategoryCardData.map(data => (
+              <div className={`CategoryCard w-52 h-72  bg-slate-400 rounded-xl shrink-0 bg-cover bg-center  flex p-4 cursor-pointer hover:bg-right-top duration-150 ease-in-out flex-col-reverse mx-[10px] ${data.className}`} style={{backgroundImage:`url("${data.bgImg}")`}}>
+              <h1 className='font-bold text-xl bg-blue-800 p-1 text-white'>{data.text}</h1>
+          </div>
+            ))}
+          </div>
+        </div>
+        <BsArrowRightCircleFill onClick={next} className='text-5xl cursor-pointer hover:text-blue-600' />
       </div>
-      <div className='flex gap-4'>
-      <FaArrowCircleLeft onClick={scrollLeft} className='bg-white hover:bg-black hover:text-white rounded-full text-black text-5xl cursor-pointer active:scale-90 duration-300' />
-      <FaArrowCircleRight onClick={scrollRight} className='bg-white rounded-full text-black hover:bg-black hover:text-white text-5xl cursor-pointer active:scale-90 duration-300' />
-      </div>
+
     </div>
-  );
+  )
 }
 
-export default CardCarousel;
+export default CardCarousel
+

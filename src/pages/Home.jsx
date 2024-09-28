@@ -31,14 +31,14 @@ function Home() {
     // }
 
     return (
-        <div className='w-full pb-8'>
-            <div className='h-screen w-full bg-cover bg-center bg-fixed' style={{ backgroundImage: `url("https://images.unsplash.com/photo-1500989145603-8e7ef71d639e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzV8fHdyaXRpbmd8ZW58MHx8MHx8fDA%3D")` }} >
-                <div className='w-full h-full bg-black/35 flex flex-col justify-center items-center  text-center  gap-8 px-8 '>
-                    <h1 className='text-5xl md:text-8xl lg:text-7xl scroll font-extrabold text-gray-800 mb-2'>Welcome to <code className='text-blue-700 bg-white p-2 rounded-md'>NextMedium</code></h1>
-                    <h2 className='text-3xl lg:font-bold font-semibold text-white '>Discover, read, and share your stories with the world.</h2>
+        <div className='w-full pb-8 bg'>
+            <div className='h-screen w-full bg-cover bg-center bg-fixed' style={{ backgroundImage: `url("https://cdn.pixabay.com/photo/2020/07/28/11/43/circles-5444818_1280.png")` }} >
+                <div className='w-full h-full bg-black/65 flex flex-col justify-center items-center  text-center  gap-8 px-8 '>
+                    <h1 className='text-4xl md:text-6xl lg:text-7xl font-extrabold text-blue-600 mb-2'>Write<span className='text-gray-200'>,</span> Share<span className='text-gray-200'>, and</span> Explore <span className='text-gray-200'>Ideas</span></h1>
+                    <h2 className='text-2xl lg:font-bold font-semibold text-white lg:px-10 '>Join a vibrant community of writers and readers. Share your thoughts, explore fresh ideas, and engage with stories that matter.</h2>
                     <div className='flex gap-3 '>
-                        <Button className='hover:bg-transparent border-2 border-blue-600'>Start Writing</Button>
-                        <Button className='border-2 border-blue-600 hover:bg-blue-600' bgColor='bg-transparent '>Reacd What Other Posted</Button>
+                        <Button className='px-6 py-3 font-bold' varient={'blue'}>Start Writing</Button>
+                        <Button className='px-6 py-3 font-bold' varient={'white'}>Explore Blogs</Button>
                     </div>
                 </div>
             </div>
