@@ -26,7 +26,14 @@ function PostForm({ post }) {
     const navigate = useNavigate()
     const userData = useSelector(state => state.auth.userData)
 
-    console.log("userData: =====================",userData)
+    function getCurrentDate() {
+        const today = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = today.toLocaleDateString('en-US', options);
+        return formattedDate;
+    }
+
+    console.log("userData: =====================", userData)
 
     const submit = async (data) => {
         if (post) {
@@ -40,6 +47,7 @@ function PostForm({ post }) {
             const dbPost = await appwriteService.updatePost(post.$id, {
                 ...data,
                 featuredImage: file ? file.$id : undefined,
+                updatedOn: getCurrentDate(),
             })
             if (dbPost) {
                 navigate(`/post/${dbPost.$id}`)
@@ -52,7 +60,9 @@ function PostForm({ post }) {
                 data.featuredImage = fileld
                 const dbPost = await appwriteService.createPost({
                     ...data,
+                    updatedOn: getCurrentDate(),
                     userId: userData.$id,
+                    author: userData.name,
                 })
                 if (dbPost) {
                     navigate(`/post/${dbPost.$id}`)
@@ -123,6 +133,12 @@ function PostForm({ post }) {
             </div>
             {/* right part */}
             <div className="sm:w-1/3 px-2">
+                <Select
+                    options={['Technology', 'Life & Culture', 'Business & Finance', 'Health & Fitness', 'Creative Writing', 'Travel & Adventure', 'Food & Cooking', 'Entertainment & Sports Media', 'Self-Improvement',]}
+                    label="Category:"
+                    className="mb-4"
+                    {...register("category", { required: true })}
+                />
                 <Input
                     label="Featured Image :"
                     type="file"

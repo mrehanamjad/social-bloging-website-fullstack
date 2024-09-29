@@ -12,7 +12,6 @@ import Signup from './Signup'
 import RTE from "./RTE";
 import AuthLayout from "./AuthLayout"; // we can import by any name if it is expoted default
 import PostForm from "./post-form/PostForm";
-import CategoryCard from "./CategoryCard";
 import CardCarousel from "./CardCarousel";
 
-export { Header, Footer, Container, Logo, LogoutBtn, Button, Input, PostCard, Select, Login,Signup, RTE, AuthLayout, PostForm ,CategoryCard, CardCarousel}
+export { Header, Footer, Container, Logo, LogoutBtn, Button, Input, PostCard, Select, Login,Signup, RTE, AuthLayout, PostForm , CardCarousel}

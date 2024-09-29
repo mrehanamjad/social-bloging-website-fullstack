@@ -43,6 +43,7 @@ const router = createBrowserRouter([
             <AllPosts />
           </AuthLayout>
         )
+      
       },
       {
         path: '/add-post',

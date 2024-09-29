@@ -10,6 +10,7 @@ function AllPosts() {
         appwriteService.getPosts([]).then((posts) => {
             if (posts) {
               setPosts(posts.documents);
+              console.log(posts.documents)
             }
           })
           .catch((error) => {
@@ -22,7 +23,7 @@ function AllPosts() {
             <Container>
                 <div className="flex flex-wrap">
                     {posts.map((post) => (
-                        <div key={post.$id} className='p-2 w-1/4'>
+                        <div key={post.$id} className='p-2 w-1/4 max-xl:w-1/3 max-lg:w-1/2 max-sm:w-full'>
                             <PostCard {...post} />
                         </div>
                     ))}

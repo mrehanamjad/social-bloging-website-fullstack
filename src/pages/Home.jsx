@@ -10,7 +10,7 @@ function Home() {
     useEffect(() => {
         appwriteService.getPosts().then((posts) => {
             if (posts) setPosts(posts.documents)
-                console.log(posts)
+            console.log(posts)
         })
     }, [])
 
@@ -39,13 +39,13 @@ function Home() {
                     <div className='flex gap-3 '>
                         <Button className='px-6 py-3 font-bold' varient={'blue'}>Start Writing</Button>
                         <Button className='px-6 py-3 font-bold' varient={'white'}>Explore Blogs</Button>
-                    </div>
+                    </div> 
                 </div>
             </div>
 
             <CardCarousel />
 
-            {!status && posts.length === 0 ?(<div className="w-full py-8 mt-4 text-center">
+            {!status && posts.length === 0 ? (<div className="w-full py-8 mt-4 text-center">
                 <Container>
                     <div className="flex flex-wrap">
                         <div className="p-2 w-full">
@@ -59,7 +59,7 @@ function Home() {
                 <h1 className='font-bold text-3xl text-center my-6'>Posts: </h1>
                 <div className='flex flex-wrap'>
                     {posts.length > 0 ? posts.map((post) => (
-                        <div key={post.$id} className='p-2 sm:w-1/4'>
+                        <div key={post.$id} className='p-2 w-1/4 max-xl:w-1/3 max-lg:w-1/2 max-sm:w-full'>
                             <PostCard {...post} />
                         </div>
                     )) : (<p className='text-center text-3xl w-full'>Loading Posts ...</p>)}

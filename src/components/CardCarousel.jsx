@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from 'react-icons/bs';
+
 function CardCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const selectRef = useRef(null);
@@ -79,11 +80,13 @@ function CardCarousel() {
       <h2 className='text-4xl md:text-6xl lg:text-7xl font-bold py-8'>Catrgories:</h2>
       <div className=' h-96 w-11/12 max-sm:w-full flex items-center justify-between gap-9 px-6 mx-auto'>
         <BsArrowLeftCircleFill onClick={prev} className='text-5xl cursor-pointer hover:text-blue-600' />
-        <div className={`w-3/4 min-w-56 overflow-hidden`}>
+        <div className={`w-[83%] min-w-56 overflow-hidden`}>
           <div ref={selectRef} className='h-96 w-full transition-transform duration-500 ease-in-out flex items-center'>
             {CategoryCardData.map(data => (
-              <div className={`CategoryCard w-52 h-72  bg-slate-400 rounded-xl shrink-0 bg-cover bg-center  flex p-4 cursor-pointer hover:bg-right-top duration-150 ease-in-out flex-col-reverse mx-[10px] ${data.className}`} style={{backgroundImage:`url("${data.bgImg}")`}}>
-              <h1 className='font-bold text-xl bg-blue-800 p-1 text-white'>{data.text}</h1>
+              <div key={data.text} className={`CategoryCard w-52 h-72  bg-slate-400 rounded-xl shrink-0 bg-cover bg-center cursor-pointer hover:bg-right-top duration-150 ease-in-out  mx-[10px] ${data.className}`} style={{backgroundImage:`url("${data.bgImg}")`}}>
+              <div className='h-full w-full flex flex-col-reverse p-4 inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40'>
+              <h3 class="z-10 mt-3 text-2xl font-bold text-white">{data.text}</h3>
+              </div>
           </div>
             ))}
           </div>
