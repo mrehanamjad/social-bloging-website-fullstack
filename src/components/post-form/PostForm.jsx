@@ -14,6 +14,7 @@ function PostForm({ post }) {
         setValue,
         control, // we pass this control as it is in our RTE.jsx
         getValues, // to grap values of all form
+        formState: {errors},
     } = useForm({
         defaultValues: { // if user edits the post then we need defaultValues
             title: post?.title || "",
@@ -84,13 +85,17 @@ function PostForm({ post }) {
             // return slug
 
             // 2nd approach:
-            return value
+
+            let transformedValue = value
                 .trim()
                 .toLowerCase()
                 .replace(/[^a-zA-z\d\s]+/g, '-')
                 // its regex means in global(whole string) Replace each character by '-' but not a-z A-Z digits spaces || ^ = not encludes || g = global 
                 .replace(/\s/g, '-') //  means replace spaces by '-' 
-
+                if (transformedValue.length > 36) {
+                    return transformedValue.substring(0, 33) + '--'; // Append '--' if length exceeds 36
+                }
+                return transformedValue;
         }
         return '';
     }, [])
@@ -118,8 +123,9 @@ function PostForm({ post }) {
                     label="Title :"
                     placeholder="Title"
                     className="mb-4 w-full text-lg py-1 px-2 rounded outline-none "
-                    {...register("title", { required: true })}
+                    {...register("title", { required: "Title is required" })}
                 />
+                                {errors.title && <p className="text-red-600">{errors.title.message}</p>} {/* Error for Title */}
                 <Input
                     label="Slug :"
                     placeholder="Slug"
@@ -134,7 +140,7 @@ function PostForm({ post }) {
             {/* right part */}
             <div className="sm:w-1/3 px-2">
                 <Select
-                    options={['Technology', 'Life & Culture', 'Business & Finance', 'Health & Fitness', 'Creative Writing', 'Travel & Adventure', 'Food & Cooking', 'Entertainment & Sports Media', 'Self-Improvement',]}
+                    options={['Technology', 'Life & Culture', 'Business & Finance', 'Health & Fitness', 'Creative Writing', 'Travel & Adventure', 'Food & Cooking', 'Entertainment & Sports Media', 'Self-Improvement']}
                     label="Category:"
                     className="mb-4"
                     {...register("category", { required: true })}
@@ -144,8 +150,9 @@ function PostForm({ post }) {
                     type="file"
                     className="mb-4"
                     accept="image/png, image/jpg, image/jpeg, image/gif"
-                    {...register("image", { required: !post })}
+                    {...register("image", { required: !post && "Featured image is required" })}
                 />
+                {errors.image && <p className="text-red-600">*{errors.image.message}</p>}
                 {post && (
                     <div className="w-full mb-4">
                         <img
@@ -161,7 +168,7 @@ function PostForm({ post }) {
                     className="mb-4"
                     {...register("status", { required: true })}
                 />
-                <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full">
+                <Button type="submit" varient='blue' className="w-full">
                     {post ? "Update" : "Submit"}
                 </Button>
             </div>

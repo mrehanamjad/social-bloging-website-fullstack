@@ -5,8 +5,8 @@ import './index.css'
 import { Provider } from 'react-redux'
 import store from './store/store.js'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { Home, Login, Signup, AllPosts, AddPost, EditPost, Post } from './pages'
-import { AuthLayout } from './components/index.js'
+import { Home, Login, Signup, AllPosts, AddPost, EditPost, Post, CategorizedPosts } from './pages'
+import { AuthLayout, CardCarousel } from './components/index.js'
 
 
 const router = createBrowserRouter([
@@ -40,10 +40,19 @@ const router = createBrowserRouter([
           <AuthLayout authentication > 
           {/* we has given true as default value to authentication */}
             {" "}
+            <CardCarousel type='text' />
             <AllPosts />
           </AuthLayout>
         )
-      
+      },
+      {
+        path: '/all-posts/category/:slug',
+        element: (
+          <AuthLayout authentication >
+            <CardCarousel type='text' />
+             <CategorizedPosts />
+          </AuthLayout>
+        )
       },
       {
         path: '/add-post',

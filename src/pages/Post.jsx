@@ -55,7 +55,7 @@ export default function Post() {
                     )}
                 <div className='w-full sm:w-10/12 md:w-3/4 shadow-2xl p-2 bg-white mx-auto z-0 relative'>
                 <div className="w-full mb-6 text-center my-9">
-                    <h1 className="text-2xl sm:text-4xl lg:text-5xl font-serif font-bold">{post.title}</h1>
+                    <h1 className="text-2xl sm:text-4xl xl:text-5xl font-serif font-bold px-4 py-1">{post.title}</h1>
                     <code>On {post.updatedOn} By {post.author} </code>
                 </div>
                 <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">

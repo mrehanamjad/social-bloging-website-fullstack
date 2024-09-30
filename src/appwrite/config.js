@@ -43,7 +43,7 @@ export class Services {
 
     async updatePost(
         slug, // post id 
-        { title, content, featuredImage, status,updatedOn }
+        { title, content,category, featuredImage, status,updatedOn }
     ) {
         try {
             return await this.databases.updateDocument(
@@ -53,6 +53,7 @@ export class Services {
                 {
                     title,
                     content,
+                    category,
                     featuredImage,
                     status,
                     updatedOn

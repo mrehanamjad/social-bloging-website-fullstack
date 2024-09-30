@@ -5,5 +5,7 @@ import AllPosts from "./AllPosts";
 import AddPost from './AddPost'
 import EditPost from "./EditPost";
 import Post from "./Post";
+import CategorizedPosts from "./CategorizedPosts";
 
-export { Home, Login, Signup, AllPosts, AddPost, EditPost, Post }
+
+export { Home, Login, Signup, AllPosts, AddPost, EditPost, Post, CategorizedPosts }
