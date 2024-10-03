@@ -1,9 +1,12 @@
 import React from 'react'
+import { FaBlog } from 'react-icons/fa'
+import { IoMdListBox } from 'react-icons/io'
 
-function Logo({width = "100px"}) {
+function Logo() {
   return (
-    <div className='text-xl font-extrabold'>
-      <code className='text-3xl font-extrabold text-blue-700'>NextMedium</code>
+    <div className='text-xl font-extrabold flex items-center'>
+      <IoMdListBox className='text-5xl' />
+      <FaBlog className='text-4xl' />
     </div>
   )
 }

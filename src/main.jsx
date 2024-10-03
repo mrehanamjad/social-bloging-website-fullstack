@@ -41,7 +41,15 @@ const router = createBrowserRouter([
           {/* we has given true as default value to authentication */}
             {" "}
             <CardCarousel type='text' />
-            <AllPosts />
+            <AllPosts type={'all'} />
+          </AuthLayout>
+        )
+      },
+      {
+        path: '/my-posts',
+        element: (
+          <AuthLayout authentication > 
+            <AllPosts type={'my'} />
           </AuthLayout>
         )
       },

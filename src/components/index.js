@@ -13,5 +13,6 @@ import RTE from "./RTE";
 import AuthLayout from "./AuthLayout"; // we can import by any name if it is expoted default
 import PostForm from "./post-form/PostForm";
 import CardCarousel from "./CardCarousel";
+import Loader from "./Loader";
 
-export { Header, Footer, Container, Logo, LogoutBtn, Button, Input, PostCard, Select, Login,Signup, RTE, AuthLayout, PostForm , CardCarousel}
+export { Header, Footer, Container, Logo, LogoutBtn, Button, Input, PostCard, Select, Login, Signup, RTE, AuthLayout, PostForm, CardCarousel, Loader }

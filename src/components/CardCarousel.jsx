@@ -94,7 +94,7 @@ function CardCarousel({ type = 'card' }) {
                 data.text !== 'All' && <Link key={data.text} to={`/all-posts/category/${data.text}`}>
                   <div key={data.text} className={`CategoryCard w-52 h-72   bg-slate-400 rounded-xl shrink-0 bg-cover bg-center cursor-pointer hover:bg-right-top duration-150 ease-in-out  mx-[10px] ${data.className}`} style={{ backgroundImage: `url("${data.bgImg}")` }}>
                     <div className='h-full w-full flex flex-col-reverse p-4 rounded-xl inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40'>
-                      <h3 class="z-10 mt-3 text-2xl font-bold text-white">{data.text}</h3>
+                      <h3 className="z-10 mt-3 text-2xl font-bold text-white">{data.text}</h3>
                     </div>
                   </div>
                 </Link>
@@ -119,7 +119,7 @@ function CardCarousel({ type = 'card' }) {
               {CategoryCardData.map(data => (
                 <Link key={data.text} to={data.text === 'All' ? "/all-posts" : `/all-posts/category/${data.text}`}>
                   <div key={data.text} className={`CategoryCard w-52 py-1 text-center hover:bg-blue-400 flex justify-center items-center  bg-slate-300 rounded-3xl shrink-0  cursor-pointer  duration-150 ease-in-out  mx-[10px] ${data.className}`}>
-                    <h3 class="z-10 text-lg text-black">{data.text}</h3>
+                    <h3 className="z-10 text-lg text-black">{data.text}</h3>
 
                   </div>
                 </Link>

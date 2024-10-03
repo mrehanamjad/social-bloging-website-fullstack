@@ -4,7 +4,7 @@ import authService from '../../appwrite/auth'
 import { logout } from '../../store/authSlice'
 
 
-function LogoutBtn() {
+function LogoutBtn({className}) {
 
   const dispach = useDispatch()
 
@@ -12,6 +12,7 @@ function LogoutBtn() {
     // these reducers i.e login, logout etc  are promises, most of the methods in appwrite are promises.
     authService.logout().then(() => {
       dispach(logout())
+      location.reload()
     })
       .catch((error) => {
         console, log('Logout failed', error)
@@ -21,7 +22,7 @@ function LogoutBtn() {
 
   return (
     <button
-    className='inline-bock px-4 mx-2 py-2 duration-200 bg-red-500 rounded text-white'
+    className={`inline-bock px-4 mx-2 py-2 duration-200 bg-red-500 rounded text-white ${className}`}
       onClick={logoutHandler}
     >Logout</button>
   )

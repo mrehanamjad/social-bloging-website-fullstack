@@ -21,6 +21,7 @@ function Signup() {
                 const userData = authService.getCurrentUser()
                 if (userData) dispatch(storeLogin(data))
                 navigate('/')
+                
             }
         } catch (error) {
             setError(error.message)
