@@ -11,8 +11,7 @@ function LogoutBtn({className}) {
   const logoutHandler = () => {
     // these reducers i.e login, logout etc  are promises, most of the methods in appwrite are promises.
     authService.logout().then(() => {
-      dispach(logout())
-      location.reload()
+      dispach(logout()).then((ifAnyReturn)=>alert(ifAnyReturn))
     })
       .catch((error) => {
         console, log('Logout failed', error)

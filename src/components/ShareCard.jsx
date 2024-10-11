@@ -1,15 +1,15 @@
 import React, { useRef, useState } from 'react'
 import { EmailIcon, EmailShareButton, FacebookIcon, FacebookMessengerIcon, FacebookMessengerShareButton, FacebookShareButton, InstapaperShareButton, LinkedinIcon, LinkedinShareButton, PinterestIcon, PinterestShareButton, RedditIcon, RedditShareButton, TelegramIcon, TelegramShareButton, TumblrIcon, TumblrShareButton, TwitterIcon, TwitterShareButton, WhatsappIcon, WhatsappShareButton } from 'react-share'
-import Button from './Button'
 import { FaLink, FaShareAlt } from 'react-icons/fa'
 import { IoClose } from 'react-icons/io5'
+import {Input, Button} from './'
 
 function ShareCard({ shareUrl, shareIconSize,onClickCross, className = '',showShareCard }) {
 
     const inputRef = useRef(null)
     const [copyBtnText, setCopyBtnText] = useState('Copy')
 
-    function clickCopy(e) {
+    function clickCopy() {
         const inp = inputRef.current;
 
         navigator.clipboard.writeText(inp.value)
@@ -75,17 +75,16 @@ function ShareCard({ shareUrl, shareIconSize,onClickCross, className = '',showSh
                 </div>
                 <div className='p-4'>
                     <div className='px-4 py-2 bg-blue-200 border-2 border-blue-600 rounded-full flex gap-4'>
-                        <input
-                            type="text"
+                        <Input
                             name='shareUrlInp'
                             value={shareUrl}
                             ref={inputRef}
-                            className=' outline-none bg-transparent w-56'
+                            className=' outline-none bg-transparent w-56 h-full'
                         />
                         <Button
                             varient='blue'
                             className='flex items-center gap-1 rounded-full'
-                            onClick={(e) => clickCopy(e)}
+                            onClick={clickCopy}
                         >
                             <FaLink /> {copyBtnText}
                         </Button>

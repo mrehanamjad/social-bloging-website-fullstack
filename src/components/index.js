@@ -14,5 +14,7 @@ import AuthLayout from "./AuthLayout"; // we can import by any name if it is exp
 import PostForm from "./post-form/PostForm";
 import CardCarousel from "./CardCarousel";
 import Loader from "./Loader";
+import InputArea from "./InputArea";
+import CommentForm from "./CommentForm";
 
-export { Header, Footer, Container, Logo, LogoutBtn, Button, Input, PostCard, Select, Login, Signup, RTE, AuthLayout, PostForm, CardCarousel, Loader }
+export { Header, Footer, Container, Logo, LogoutBtn, Button, Input, PostCard, Select, Login, Signup, RTE, AuthLayout, PostForm, CardCarousel, Loader, InputArea, CommentForm }

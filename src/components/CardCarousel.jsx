@@ -80,14 +80,14 @@ function CardCarousel({ type = 'card' }) {
   if (type === 'card') {
     return (
       <div
-        className='bg-sky-700 w-full bg-cover bg-center bg-fixed flex flex-col justify-center items-center text-white'
-        style={{
-          backgroundImage: `url("https://images.unsplash.com/photo-1530533718754-001d2668365a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")`,
-        }}
+        className='bg-gray-200 h-96 rounded-t-3xl w-full bg-cover bg-center bg-fixed flex flex-col justify-center items-center text-white'
+        // style={{
+        //   backgroundImage: `url("https://images.unsplash.com/photo-1530533718754-001d2668365a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")`,
+        // }}
       >
-        <h2 className='text-4xl md:text-6xl lg:text-7xl font-bold py-8'>Catrgories:</h2>
+        {/* <h2 className='text-4xl md:text-6xl lg:text-7xl font-bold py-8'>Catrgories:</h2> */}
         <div className=' h-96 w-11/12 max-sm:w-full flex items-center justify-between gap-9 px-6 mx-auto'>
-          <BsArrowLeftCircleFill onClick={prev} className='text-5xl cursor-pointer hover:text-blue-600' />
+          <BsArrowLeftCircleFill onClick={prev} className='text-5xl cursor-pointer shadow-xl hover:shadow-md bg-blue-600 rounded-full hover:bg-white hover:text-blue-600' />
           <div className={`w-[83%] min-w-56 overflow-hidden`}>
             <div ref={selectRef} className='h-96 w-full transition-transform duration-500 ease-in-out flex items-center'>
               {CategoryCardData.map(data => (
@@ -98,11 +98,10 @@ function CardCarousel({ type = 'card' }) {
                     </div>
                   </div>
                 </Link>
-                // <CategoryCard text={data.text} className={data.className} bgImg={data.bgImg} />
               ))}
             </div>
           </div>
-          <BsArrowRightCircleFill onClick={next} className='text-5xl cursor-pointer hover:text-blue-600' />
+          <BsArrowRightCircleFill onClick={next} className='text-5xl cursor-pointer shadow-xl hover:shadow-md bg-blue-600 rounded-full hover:bg-white hover:text-blue-600' />
         </div>
 
       </div>

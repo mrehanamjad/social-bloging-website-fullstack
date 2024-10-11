@@ -25,9 +25,10 @@ function Home() {
     }, [status]); 
 
     return (
-        <div className='w-full pb-8 bg'>
-            <div className='h-screen w-full bg-cover bg-center bg-fixed' style={{ backgroundImage: `url("https://cdn.pixabay.com/photo/2020/07/28/11/43/circles-5444818_1280.png")` }} >
-                <div className='w-full h-full bg-black/65 flex flex-col justify-center items-center text-center gap-8 px-8 '>
+        <div className='w-full'>
+            <div className='h-[140vh] w-full bg-cover bg-center bg-fixed ' style={{ backgroundImage: `url("https://cdn.pixabay.com/photo/2020/07/28/11/43/circles-5444818_1280.png")` }} >
+                <div className='w-full h-full bg-black/65  flex flex-col justify-between'>
+                <div className='h-full flex flex-col justify-center items-center text-center gap-8 px-8'>
                     <h1 className='text-4xl md:text-6xl lg:text-7xl font-extrabold text-blue-600 mb-2'>Write<span className='text-gray-200'>,</span> Share<span className='text-gray-200'>, and</span> Explore <span className='text-gray-200'>Ideas</span></h1>
                     <h2 className='text-2xl lg:font-bold font-semibold text-white lg:px-10'>Join a vibrant community of writers and readers. Share your thoughts, explore fresh ideas, and engage with stories that matter.</h2>
                     <div className='flex gap-3 '>
@@ -35,9 +36,10 @@ function Home() {
                         <Link to={status ? 'all-posts' : "/login"}><Button className='px-6 py-3 font-bold' varient={'white'}>Explore Blogs</Button></Link>
                     </div>
                 </div>
+            <CardCarousel />
+                </div>
             </div>
 
-            <CardCarousel />
 
             {!status && posts.length === 0 ? (
                 <div className="w-full py-8 mt-4 text-center">
@@ -53,7 +55,7 @@ function Home() {
                 </div>
             ) : (
                 <Container>
-                    <h1 className='font-bold text-3xl text-center my-6'>Posts: </h1>
+                    <h1 className='font-bold text-4xl text-center m-6'>Posts: </h1>
                     <div className='flex flex-wrap'>
                         {loading ? (
                             <Loader />

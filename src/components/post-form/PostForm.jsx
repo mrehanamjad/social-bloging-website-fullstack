@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button, Input, Select, RTE } from '../index'
-import authService from '../../appwrite/auth'
 import appwriteService from '../../appwrite/config'
 //👆 we can change name if it is expost default: in ../../appwrite/aut.js we have export default sevices but here we import  appwriteService.
 import { useNavigate } from 'react-router-dom'
@@ -14,7 +13,7 @@ function PostForm({ post }) {
         setValue,
         control, // we pass this control as it is in our RTE.jsx
         getValues, // to grap values of all form
-        formState: {errors},
+        formState: { errors },
     } = useForm({
         defaultValues: { // if user edits the post then we need defaultValues
             title: post?.title || "",
@@ -29,8 +28,10 @@ function PostForm({ post }) {
 
     function getCurrentDate() {
         const today = new Date();
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const formattedDate = today.toLocaleDateString('en-US', options);
+        const formattedDate = today.toLocaleDateString(
+            'en-US',
+            { year: 'numeric', month: 'long', day: 'numeric' }
+        );
         return formattedDate;
     }
 
@@ -92,10 +93,10 @@ function PostForm({ post }) {
                 .replace(/[^a-zA-z\d\s]+/g, '-')
                 // its regex means in global(whole string) Replace each character by '-' but not a-z A-Z digits spaces || ^ = not encludes || g = global 
                 .replace(/\s/g, '-') //  means replace spaces by '-' 
-                if (transformedValue.length > 36) {
-                    return transformedValue.substring(0, 33) + '--'; // Append '--' if length exceeds 36
-                }
-                return transformedValue;
+            if (transformedValue.length > 36) {
+                return transformedValue.substring(0, 33) + '--'; // Append '--' if length exceeds 36
+            }
+            return transformedValue;
         }
         return '';
     }, [])
@@ -125,7 +126,7 @@ function PostForm({ post }) {
                     className="mb-4 w-full text-lg py-1 px-2 rounded outline-none "
                     {...register("title", { required: "Title is required" })}
                 />
-                                {errors.title && <p className="text-red-600">{errors.title.message}</p>} {/* Error for Title */}
+                {errors.title && <p className="text-red-600">{errors.title.message}</p>} {/* Error for Title */}
                 <Input
                     label="Slug :"
                     placeholder="Slug"
