@@ -84,7 +84,7 @@ export default function Post() {
                             </button>
                         </div>
                     </div>
-                    <ShareCard shareUrl={location.pathname} shareIconSize={'45'} showShareCard={showShareC} onClickCross={() => setShowShareC(false)} />
+                    <ShareCard shareUrl={`${window.location.origin}${location.pathname}${location.search}`} shareIconSize={'45'} showShareCard={showShareC} onClickCross={() => setShowShareC(false)} />
 
                     <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
                         <img

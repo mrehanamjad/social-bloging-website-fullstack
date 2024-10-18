@@ -60,9 +60,10 @@ function Home() {
                         {loading ? (
                             <Loader />
                         ) : (
-                            posts.length > 0 ? posts.map((post) => (
+                            posts.length > 0 ? posts.map((post,i) => (
                                 <div key={post.$id} className='p-2 w-1/4 max-xl:w-1/3 max-lg:w-1/2 max-sm:w-full'>
                                     <PostCard {...post} />
+                                    
                                 </div>
                             )) : <p className='text-xl text-center p-6'>No posts available</p>
                         )}
