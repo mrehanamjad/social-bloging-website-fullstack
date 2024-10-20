@@ -8,7 +8,7 @@ const conf = {
     appwriteCollectionId : String(import.meta.env.VITE_APPWRITE_COLLECTION_ID),
     appwriteBucketId : String(import.meta.env.VITE_APPWRITE_BUCKET_ID),
     appwriteCommentCollectionId : String(import.meta.env.VITE_APPWRITE_COMMENT_COLLECTION_ID),
-    tyniMcKey : String(import.meta.env.VITE_APPWRITE_TINYMCE_KEY)
+    tyniMcKey : String(import.meta.env.VITE_APPWRITE_TINYMCE_ID)
     
 }
 
