@@ -5,12 +5,11 @@ import { useForm } from 'react-hook-form';
 import appwriteCommentServices from '../appwrite/CommentConfig';
 import { useSelector } from 'react-redux';
 
-function CommentForm({ postId, comment, onCommentAdded,className }) {
+function CommentForm({ postId, comment, onCommentAdded,parentCommentId,className }) {
     const userData = useSelector(state => state.auth.userData);
     const { register, handleSubmit, watch, reset } = useForm({
         defaultValues: {
             commentText: comment?.commentText || '',
-            replies:  comment?.replies || ''
         }
     });
 
@@ -22,6 +21,7 @@ function CommentForm({ postId, comment, onCommentAdded,className }) {
                 ...data,
                 postId,
                 userId: userData.$id,
+                parentCommentId: parentCommentId
             });
             if(updatedComment) onCommentAdded();
         } else {
@@ -29,6 +29,7 @@ function CommentForm({ postId, comment, onCommentAdded,className }) {
                 ...data,
                 postId,
                 userId: userData.$id,
+                parentCommentId: parentCommentId
             });
             if(newComment) onCommentAdded();
         }
@@ -39,12 +40,12 @@ function CommentForm({ postId, comment, onCommentAdded,className }) {
     return (
         <form onSubmit={handleSubmit(submit)} className={`w-full flex flex-col ${className}`}>
             <InputArea
-                placeholder="Write Comment here ..."
-                className='placeholder:text-yellow-300 placeholder:font-bold placeholder:text-xl'
+                placeholder={parentCommentId?'Write your reply...':"Write Comment here ..."}
+                className={!parentCommentId && 'placeholder:text-blue-300 placeholder:font-bold placeholder:text-xl'}
                 {...register('commentText', { required: true })}
             />
             <Button className={`self-end mx-4 ${ commentText ? '' : 'hidden'}`}>
-                {comment ? 'Update' : 'Comment'} <IoMdSend className='inline-block' />
+                {parentCommentId ? (comment ? 'Update' : 'Reply') : (comment ? 'Update' : 'Comment')} <IoMdSend className='inline-block' />
             </Button>
         </form>
     );

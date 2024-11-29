@@ -69,7 +69,7 @@ export default function Post() {
                     </div>
                     <div className='p-1  px-10 flex justify-between items-center max-sm:flex-col'>
                         <Link to={`/all-posts/category/${post.category}`}>
-                        <span className='cursor-pointer bg-blue-950 my-1 text-blue-200  text-sm font-medium transition-colors hover:bg-[#F5F5F5] hover:text-[#60A5FA] px-1 py-1 rounded-md flex justify-center items-center gap-2'><BiSolidCategory />
+                        <span className='cursor-pointer bg-blue-950 my-1 text-blue-200  text-sm font-medium transition-colors hover:bg-[#F5F5F5] hover:text-[#60A5FA] px-2 py-1 rounded-md flex justify-center items-center gap-2'><BiSolidCategory />
                             {post.category}</span></Link>
                         <div className='flex gap-2'>
                             <HashLink to='#comments' smooth >
