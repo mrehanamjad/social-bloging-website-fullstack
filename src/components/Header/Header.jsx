@@ -118,8 +118,8 @@ function Header() {
                     setShowNavBar(false)
                   }}
                 >
-                  <div className="flex items-center text-gray-700">
-                    <item.icon className="mr-3 text-gray-500" />
+                  <div className="flex items-center text-gray-700 hover:text-blue-600 hover:bg-blue-50">
+                    <item.icon className="mr-3" />
                     <span className="text-sm font-medium">{item.name}</span>
                   </div>
                 </div>

@@ -137,6 +137,7 @@ function ShareCard({ shareUrl, shareIconSize = 40, onClickCross, className = '',
                                     text-gray-700 
                                     dark:text-gray-200
                                     outline-none
+                                    w-full
                                 '
                             />
                             <Button

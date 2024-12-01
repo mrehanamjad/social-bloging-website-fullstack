@@ -6,8 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { 
   FaEdit, 
-  FaImage, 
-  FaCheckCircle, 
+  FaImage,  
   FaTimesCircle, 
   FaCalendarAlt, 
   FaTag, 

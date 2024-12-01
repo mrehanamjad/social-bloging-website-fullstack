@@ -84,7 +84,7 @@ const CategoryCardCarousel = () => {
         </button>
 
         {/* Card Carousel Container */}
-        <div className="flex overflow-hidden w-full space-x-4">
+        <div className="flex overflow-hidden rounded-xl w-full space-x-4">
           {CategoryCardData.map((category, index) => (
             <Link key={category.text} to={category.text === 'All' ? `/all-posts` : `/all-posts/category/${category.text}`}>
             <div 

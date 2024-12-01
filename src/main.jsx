@@ -40,7 +40,6 @@ const router = createBrowserRouter([
           <AuthLayout authentication > 
           {/* we has given true as default value to authentication */}
             {" "}
-            <CardCarousel type='text' />
             <AllPosts type={'all'} />
           </AuthLayout>
         )
@@ -57,7 +56,6 @@ const router = createBrowserRouter([
         path: '/all-posts/category/:slug',
         element: (
           <AuthLayout authentication >
-            <CardCarousel type='text' />
              <CategorizedPosts />
           </AuthLayout>
         )

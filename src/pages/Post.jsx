@@ -5,11 +5,10 @@ import { Button, Container } from '../components'
 import parse from 'html-react-parser'
 import { useSelector } from "react-redux"
 import { FaCommentAlt, FaShare } from 'react-icons/fa'
-import {  BiCalendar,  BiUser } from 'react-icons/bi'
+import { BiCalendar, BiUser } from 'react-icons/bi'
 import ShareCard from '../components/ShareCard'
 import Comments from '../components/Comments'
 import { HashLink } from 'react-router-hash-link';
-import { BsArrowLeft, BsArrowRight } from 'react-icons/bs'
 
 export default function Post() {
     const [post, setPost] = useState(null)
@@ -63,6 +62,7 @@ export default function Post() {
                 )}
 
                 <div className="container mx-auto max-w-4xl px-6 py-12">
+                    
                     {/* Post Header */}
                     <header className="mb-6">
                         <div className="flex md:items-center max-md:flex-col gap-2 md:justify-between mb-4 md:mb-6">
@@ -114,17 +114,8 @@ export default function Post() {
                         {parse(post.content)}
                     </article>
 
-        <div id='comments'></div>
+                    <div id='comments'></div>
                     <Comments postId={post.$id} />
-                    {/* Related Posts Navigation */}
-                    <div className="flex justify-between mt-12">
-                        <button className="flex items-center bg-white border px-6 py-3 rounded-lg hover:bg-gray-50">
-                            <BsArrowLeft className="mr-2" /> Previous Post
-                        </button>
-                        <button className="flex items-center bg-white border px-6 py-3 rounded-lg hover:bg-gray-50">
-                            Next Post <BsArrowRight className="ml-2" />
-                        </button>
-                    </div>
                 </div>
 
 
