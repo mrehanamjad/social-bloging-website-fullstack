@@ -40,11 +40,10 @@ function CommentForm({ postId, comment, onCommentAdded,parentCommentId,className
     return (
         <form onSubmit={handleSubmit(submit)} className={`w-full flex flex-col ${className}`}>
             <InputArea
-                placeholder={parentCommentId?'Write your reply...':"Write Comment here ..."}
-                className={!parentCommentId && 'placeholder:text-blue-300 placeholder:font-bold placeholder:text-xl'}
+                placeholder={parentCommentId?'Write a reply...':"Write a Comment..."}
                 {...register('commentText', { required: true })}
             />
-            <Button className={`self-end mx-4 ${ commentText ? '' : 'hidden'}`}>
+            <Button className={`self-end mx-1`}>
                 {parentCommentId ? (comment ? 'Update' : 'Reply') : (comment ? 'Update' : 'Comment')} <IoMdSend className='inline-block' />
             </Button>
         </form>

@@ -1,11 +1,10 @@
 import React, { useRef, useState } from 'react'
-import { EmailIcon, EmailShareButton, FacebookIcon, FacebookMessengerIcon, FacebookMessengerShareButton, FacebookShareButton, InstapaperShareButton, LinkedinIcon, LinkedinShareButton, PinterestIcon, PinterestShareButton, RedditIcon, RedditShareButton, TelegramIcon, TelegramShareButton, TumblrIcon, TumblrShareButton, TwitterIcon, TwitterShareButton, WhatsappIcon, WhatsappShareButton } from 'react-share'
-import { FaLink, FaShareAlt } from 'react-icons/fa'
+import { EmailIcon, EmailShareButton, FacebookIcon, FacebookMessengerIcon, FacebookMessengerShareButton, FacebookShareButton, LinkedinIcon, LinkedinShareButton, PinterestIcon, PinterestShareButton, RedditIcon, RedditShareButton, TelegramIcon, TelegramShareButton, TumblrIcon, TumblrShareButton, TwitterIcon, TwitterShareButton, WhatsappIcon, WhatsappShareButton } from 'react-share'
+import { FaLink, FaShareAlt, FaCopy } from 'react-icons/fa'
 import { IoClose } from 'react-icons/io5'
-import {Input, Button} from './'
+import { Input, Button } from './'
 
-function ShareCard({ shareUrl, shareIconSize,onClickCross, className = '',showShareCard }) {
-
+function ShareCard({ shareUrl, shareIconSize = 40, onClickCross, className = '', showShareCard }) {
     const inputRef = useRef(null)
     const [copyBtnText, setCopyBtnText] = useState('Copy')
 
@@ -15,7 +14,7 @@ function ShareCard({ shareUrl, shareIconSize,onClickCross, className = '',showSh
         navigator.clipboard.writeText(inp.value)
             .then(() => {
                 inp.select(); 
-                setCopyBtnText('Copied'); 
+                setCopyBtnText('Copied!'); 
                 setTimeout(() => {
                     setCopyBtnText('Copy');
                 }, 2000);
@@ -25,69 +24,141 @@ function ShareCard({ shareUrl, shareIconSize,onClickCross, className = '',showSh
             });
     }
 
+    // Social media platforms to share
+    const socialPlatforms = [
+        { Component: WhatsappShareButton, Icon: WhatsappIcon },
+        { Component: FacebookShareButton, Icon: FacebookIcon },
+        { Component: TwitterShareButton, Icon: TwitterIcon },
+        { Component: LinkedinShareButton, Icon: LinkedinIcon },
+        { Component: TelegramShareButton, Icon: TelegramIcon },
+        { Component: EmailShareButton, Icon: EmailIcon },
+        { Component: FacebookMessengerShareButton, Icon: FacebookMessengerIcon },
+        { Component: PinterestShareButton, Icon: PinterestIcon },
+        { Component: TumblrShareButton, Icon: TumblrIcon },
+        { Component: RedditShareButton, Icon: RedditIcon }
+    ];
+
     return (
-        <div className={`${showShareCard ? 'flex' : 'hidden'} absolute  z-50 min-w-96 w-full rounded-2xl h-80 bg-blue-950/85 flex-col items-center justify-between pb-16 pt-5 gap-3`}>
-            <div className='w-full flex flex-row-reverse px-7 '><IoClose onClick={onClickCross} className='text-white font-bold text-5xl cursor-pointer text-right bg-blue-600 rounded-full p-1 hover:bg-red-400' /></div>
-            <div className='flex flex-col justify-center items-center gap-4'>
-                <h1 className='text-xl text-blue-100 font-bold font-mono flex items-center gap-2'><FaShareAlt /> Share To Social Media</h1>
-                <div className='flex items-center justify-center flex-wrap gap-2'>
-
-                    <EmailShareButton url={shareUrl} className={`p-4 ${className}`}  >
-                        <EmailIcon size={shareIconSize} round />
-                    </EmailShareButton>
-
-                    <WhatsappShareButton url={shareUrl} className={`p-4 ${className}`}  >
-                        <WhatsappIcon size={shareIconSize} round />
-                    </WhatsappShareButton>
-
-                    <LinkedinShareButton url={shareUrl} className={`p-4 ${className}`}  >
-                        <LinkedinIcon size={shareIconSize} round />
-                    </LinkedinShareButton>
-
-                    <FacebookShareButton url={shareUrl} className={`p-4 ${className}`}  >
-                        <FacebookIcon size={shareIconSize} round />
-                    </FacebookShareButton>
-
-                    <FacebookMessengerShareButton url={shareUrl} className={`p-4 ${className}`}  >
-                        <FacebookMessengerIcon size={shareIconSize} round />
-                    </FacebookMessengerShareButton>
-
-                    <TwitterShareButton url={shareUrl} className={`p-4 ${className}`}  >
-                        <TwitterIcon size={shareIconSize} round />
-                    </TwitterShareButton>
-
-                    <TelegramShareButton url={shareUrl} className={`p-4 ${className}`}  >
-                        <TelegramIcon size={shareIconSize} round />
-                    </TelegramShareButton>
-
-                    <TumblrShareButton url={shareUrl} className={`p-4 ${className}`}  >
-                        <TumblrIcon size={shareIconSize} round />
-                    </TumblrShareButton>
-
-                    <PinterestShareButton url={shareUrl} className={`p-4 ${className}`}  >
-                        <PinterestIcon size={shareIconSize} round />
-                    </PinterestShareButton>
-
-                    <RedditShareButton url={shareUrl} className={`p-4 ${className}`}  >
-                        <RedditIcon size={shareIconSize} round />
-                    </RedditShareButton>
-
+        <div 
+            className={`
+                ${showShareCard ? 'flex' : 'hidden'} 
+                fixed inset-0 bg-black bg-opacity-50 
+                items-center justify-center 
+                z-50 p-4
+            `}
+        >
+            <div className='
+                bg-white dark:bg-slate-800 
+                rounded-2xl 
+                shadow-2xl 
+                w-full max-w-md 
+                overflow-hidden 
+            '>
+                {/* Close Button */}
+                <div className='
+                    flex justify-end 
+                    p-4 
+                    bg-blue-50 dark:bg-slate-900
+                '>
+                    <button 
+                        onClick={onClickCross} 
+                        className='
+                            text-gray-600 dark:text-gray-300 
+                            hover:bg-red-100 dark:hover:bg-red-900 
+                            rounded-full 
+                            p-2 
+                            transition-colors
+                        '
+                    >
+                        <IoClose className='text-2xl' />
+                    </button>
                 </div>
-                <div className='p-4'>
-                    <div className='px-4 py-2 bg-blue-200 border-2 border-blue-600 rounded-full flex gap-4'>
-                        <Input
-                            name='shareUrlInp'
-                            value={shareUrl}
-                            ref={inputRef}
-                            className=' outline-none bg-transparent w-56 h-full'
-                        />
-                        <Button
-                            varient='blue'
-                            className='flex items-center gap-1 rounded-full'
-                            onClick={clickCopy}
-                        >
-                            <FaLink /> {copyBtnText}
-                        </Button>
+
+                {/* Content */}
+                <div className='px-6 pb-6 pt-2 space-y-6'>
+                    {/* Title */}
+                    <div className='flex items-center justify-center gap-3 mb-4'>
+                        <FaShareAlt className='text-blue-500 text-2xl' />
+                        <h2 className='
+                            text-xl 
+                            font-semibold 
+                            text-gray-800 
+                            dark:text-gray-200
+                        '>
+                            Share to Social Media
+                        </h2>
+                    </div>
+
+                    {/* Social Media Icons */}
+                    <div className='
+                        grid grid-cols-5 
+                        gap-4 
+                        justify-center 
+                        items-center
+                    '>
+                        {socialPlatforms.map(({ Component, Icon }, index) => (
+                            <Component 
+                                key={index} 
+                                url={shareUrl} 
+                                className='
+                                    hover:scale-110 
+                                    transition-transform 
+                                    duration-300 
+                                    ease-in-out
+                                '
+                            >
+                                <Icon size={shareIconSize} round />
+                            </Component>
+                        ))}
+                    </div>
+
+                    {/* Copy Link Section */}
+                    <div className='mt-4'>
+                        <div className='
+                            flex 
+                            items-center 
+                            bg-blue-50 
+                            dark:bg-slate-700 
+                            rounded-3xl
+                            border 
+                            border-blue-200 
+                            
+                        '>
+                            <Input
+                                name='shareUrlInp'
+                                value={shareUrl}
+                                ref={inputRef}
+                                readOnly
+                                className='
+                                    flex-grow 
+                                    px-3 
+                                    py-2 
+                                    bg-transparent 
+                                    text-gray-700 
+                                    dark:text-gray-200
+                                    outline-none
+                                '
+                            />
+                            <Button
+                                variant='blue'
+                                onClick={clickCopy}
+                                className='
+                                    flex 
+                                    items-center 
+                                    gap-2 
+                                    m-1 
+                                    px-4 
+                                    py-2 
+                                    
+                                    bg-blue-500 
+                                    text-white 
+                                    hover:bg-blue-600 
+                                    transition-colors
+                                '
+                            >
+                                <FaCopy /> {copyBtnText}
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </div>
