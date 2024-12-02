@@ -16,15 +16,17 @@ export class AuthService {
     this.account = new Account(this.client)
   }
 
-  async createAcount({email,password,name}){
+  async createAccount({email,password,name}){
     try {
     // if want to use other services rathar than appwrite if future ==> change below
         const userAccount = await this.account.create(ID.unique(),email,password,name)
         if (userAccount) {
             //call another method
-            this.login({email,password})
+            // this.login({email,password})
+            return true;
         } else {
-            return userAccount
+            // return userAccount
+            return false;
         }
     } catch (error) {
      throw error   

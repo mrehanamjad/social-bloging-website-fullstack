@@ -13,22 +13,25 @@ function Signup() {
     const { register, handleSubmit } = useForm()
     const [error, setError] = useState('')
 
-    const create = async(data) => {
-        setError("")
+    const create = async (data) => {
+        setError("");
         try {
-            const userData = await authService.createAcount(data)
-            if (userData) {
-                // const session = await authService.login(data)
-                const userData = authService.getCurrentUser()
-                if (userData) {dispatch(storeLogin(data))
-                navigate('/')}
-                
+          const accountCreated = await authService.createAccount(data); // Await added here
+          if (accountCreated) {
+            const session = await authService.login(data);
+            if (session) {
+              const currentUser = await authService.getCurrentUser(); // Await added here
+              if (currentUser) {
+                dispatch(storeLogin(currentUser));
+                navigate('/');
+              }
             }
+          }
         } catch (error) {
-            setError(error.message)
+          setError(error.message);
         }
-    }
-
+      };
+    
     return (
         <div className="flex items-center justify-center">
             <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
