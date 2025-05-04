@@ -14,7 +14,7 @@ export class Services {
         this.bucket = new Storage(this.client)
     }
 
-    async createPost({ title, slug, content,category, featuredImage, status,updatedOn, userId,author }) { // in featuredImae we pass image_file_id
+    async createPost({ title, slug, content, category, featuredImage, status, updatedOn, userId, author }) { // in featuredImae we pass image_file_id
         try {
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
@@ -39,7 +39,7 @@ export class Services {
 
     async updatePost(
         slug, // post id 
-        { title, content,category, featuredImage, status,updatedOn }
+        { title, content, category, featuredImage, status, updatedOn }
     ) {
         try {
             return await this.databases.updateDocument(
@@ -77,7 +77,7 @@ export class Services {
     //one post
     async getPost(slug) {
         try {
-           return await this.databases.getDocument(conf.appwriteDatabaseId, conf.appwriteCollectionId, slug) // slug as document_id
+            return await this.databases.getDocument(conf.appwriteDatabaseId, conf.appwriteCollectionId, slug) // slug as document_id
         } catch (error) {
             console.log("Appwrite :: getPost :: error", error);
             return false
@@ -85,14 +85,18 @@ export class Services {
     }
 
     // all posts
-    async getPosts(queres = [Query.equal("status", "active")]) {
+    async getPosts(queres) {
 
-        try { 
-            return await this.databases.listDocuments( //returns array
+        try {
+            return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                queres, 
-                // TODO: add paginations 
+                [
+                    Query.equal("status", "active"),
+                    Query.orderDesc('$updatedAt'),
+                    ...queres
+                ],
+
             )
         } catch (error) {
             console.log("Appwrite :: getPosts :: error", error);
@@ -100,7 +104,39 @@ export class Services {
         }
     }
 
-    async uploadFile(file) { 
+
+
+    async getMyPosts(userId, queres) {
+        try {
+            return await this.databases.listDocuments(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
+                [
+                    Query.equal("userId", userId),
+                    Query.orderDesc('$updatedAt'),
+                    ...queres
+                ],
+            )
+        } catch (error) {
+            console.log("Appwrite :: getMyPosts :: error", error);
+            return false
+        }
+    }
+
+    async getSearchedPosts(searchText) {
+        try {
+            return await this.databases.listDocuments(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
+                [Query.search(searchText), Query.orderDesc('$updatedAt')],
+            )
+        } catch (error) {
+            console.log("Appwrite :: getSearchedPosts :: error", error);
+            return false
+        }
+    }
+
+    async uploadFile(file) {
         try {
             return await this.bucket.createFile(
                 conf.appwriteBucketId,
@@ -127,7 +163,7 @@ export class Services {
         }
     }
 
-    getFilePreview(fileId) { 
+    getFilePreview(fileId) {
         try {
             return this.bucket.getFileView(
                 conf.appwriteBucketId,
