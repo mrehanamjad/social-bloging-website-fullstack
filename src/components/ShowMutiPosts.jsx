@@ -6,7 +6,15 @@ import { Link } from 'react-router-dom'
 import { FaNewspaper, FaPen, FaSearch } from 'react-icons/fa'
 import { CategoryDropdown } from '../components/CardCarousel'
 
-function ShowMutiPosts({ postsData, loading,fetchPost,noMorePosts, notFoundObject = { title, description, link, btnText } }) {
+const defaultNotFound = {
+    title: "No Posts Found",
+    description: "Try creating your first post.",
+    link: "/create",
+    btnText: "Create Post",
+    btnIcon: FaPen
+  };
+
+function ShowMutiPosts({ postsData, loading,fetchPost,noMorePosts, notFoundObject = defaultNotFound }) {
     const renderContent = () => {
 
         if (postsData && postsData.length === 0 && !loading) {
@@ -22,7 +30,7 @@ function ShowMutiPosts({ postsData, loading,fetchPost,noMorePosts, notFoundObjec
 
                     {notFoundObject.btnText && <Link to={`${notFoundObject.link}`}>
                         <Button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white">
-                            <FaPen size={20} />
+                            <notFoundObject.btnIcon size={20} />
                             {notFoundObject.btnText}
                         </Button>
                     </Link>}
@@ -32,11 +40,11 @@ function ShowMutiPosts({ postsData, loading,fetchPost,noMorePosts, notFoundObjec
 
         return (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {postsData && postsData.map((post) => (
+                {Array.isArray(postsData) ?  postsData.map((post) => (
                     <div key={post.$id} className="w-full">
                         <PostCard {...post} />
                     </div>
-                ))}
+                )) : null}
             </div>
         );
 

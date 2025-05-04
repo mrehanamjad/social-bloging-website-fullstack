@@ -21,13 +21,12 @@ function SearchPage() {
         try {
             setSearchedText(searchText)
             const posts = lastSearchedPostId ? await appwriteService.getSearchedPosts(searchText, [Query.limit(8), Query.cursorAfter(lastSearchedPostId)]) : await appwriteService.getSearchedPosts(searchText, [Query.limit(8)],);
-            console.log("posts::search:: ", posts)
             if (posts && posts.documents?.length > 0) {
                 setSearchResults(posts.documents)
             }
 
             if (posts && posts.documents?.length > 7) setLastSearchedPostId(posts.documents?.at(-1)?.$id)
-            if (!posts || (posts && posts.documents?.length < 8)) {
+            if ( posts.documents?.length < 8) {
                 setNoMorePosts(true)
             }
 
@@ -47,7 +46,6 @@ function SearchPage() {
                         <h1 className="text-4xl font-bold text-gray-900 ">
                             Search..
                         </h1>
-                        {/* <CategoryDropdown /> */}
                     </div>
                     <div className="flex items-center space-x-4 mb-6">
                         <form onSubmit={searchPosts} className="relative flex-grow">

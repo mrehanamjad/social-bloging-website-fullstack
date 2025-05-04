@@ -34,6 +34,7 @@ export default function Post() {
                 console.log("post",post)
             }).catch((error) => error)
         } else navigate("/");
+        window.scrollTo(0, 0);
     }, [slug, navigate])
 
     const deletePost = () => {

@@ -123,6 +123,23 @@ export class Services {
         }
     }
 
+    async getPostsByCategory(category, quries) {
+        try {
+            return await this.databases.listDocuments(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
+                [
+                    Query.equal("category", category),
+                    Query.orderDesc('$updatedAt'),
+                    ...quries
+                ],
+            )
+        } catch (error) {
+            console.log("Appwrite :: getPostsByCategory :: error", error);
+            return false
+        }
+    }
+
     async getSearchedPosts(searchText,quries) {
         try {
             return await this.databases.listDocuments(

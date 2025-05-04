@@ -4,12 +4,15 @@ const initialState = {
     lastAllPostId: null,
     allPostData: [],
     noMoreAllPosts: false,
+
     lastMyPostId: null,
     myPostData: [],
     noMoreMyPosts: false,
-}
 
-const postsSlice = createSlice({    
+    categoryPosts: {},  // { "Technology": { data: [], lastId: null, noMore: false }, ... }
+};
+
+const postsSlice = createSlice({
     name: "posts",
     initialState,
     reducers: {
@@ -26,10 +29,33 @@ const postsSlice = createSlice({
         },
         setNoMoreMyPosts: (state) => {
             state.noMoreMyPosts = true;
+        },
+
+        setCategoryPosts: (state, action) => {
+            const { category, posts, lastId } = action.payload;
+            if (!state.categoryPosts[category]) {
+                state.categoryPosts[category] = { data: [], lastId: null, noMore: false };
+            }
+            state.categoryPosts[category].data.push(...posts);
+            state.categoryPosts[category].lastId = lastId;
+        },
+        setNoMoreCategoryPosts: (state, action) => {
+            const category = action.payload;
+            if (!state.categoryPosts[category]) {
+                state.categoryPosts[category] = { data: [], lastId: null, noMore: false };
+            }
+            state.categoryPosts[category].noMore = true;
         }
     }
 });
 
-export const { setAllPosts, setMyPosts, setNoMoreAllPosts, setNoMoreMyPosts } = postsSlice.actions;
+export const {
+    setAllPosts,
+    setMyPosts,
+    setNoMoreAllPosts,
+    setNoMoreMyPosts,
+    setCategoryPosts,
+    setNoMoreCategoryPosts,
+} = postsSlice.actions;
 
 export default postsSlice.reducer;
