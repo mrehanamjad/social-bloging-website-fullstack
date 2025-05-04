@@ -9,13 +9,13 @@ function UserDropdown() {
         <div className="relative">
             <button
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 hover:bg-blue-200 text-blue-600 transition-colors"
+                className="flex items-center  justify-center w-10 h-10 rounded-full bg-blue-100 hover:bg-blue-200 text-blue-600 transition-colors"
             >
                 <BiUser size={20} />
             </button>
 
             {isUserMenuOpen && (
-                <UserManu />
+                <UserManu width='60' />
             )}
         </div>
     )

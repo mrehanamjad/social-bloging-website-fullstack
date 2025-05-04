@@ -37,7 +37,7 @@ const router = createBrowserRouter([
       {
         path: '/all-posts',
         element: (
-          <AuthLayout authentication > 
+          <AuthLayout authentication={false} >
             {" "}
             <AllPosts type={'all'} />
           </AuthLayout>
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
       {
         path: '/my-posts',
         element: (
-          <AuthLayout authentication > 
+          <AuthLayout authentication >
             <AllPosts type={'my'} />
           </AuthLayout>
         )
@@ -54,8 +54,8 @@ const router = createBrowserRouter([
       {
         path: '/all-posts/category/:slug',
         element: (
-          <AuthLayout authentication >
-             <CategorizedPosts />
+          <AuthLayout authentication={false} >
+            <CategorizedPosts />
           </AuthLayout>
         )
       },
@@ -79,7 +79,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/post/:slug',
-        element: <Post />
+        element: (
+          <AuthLayout authentication={false}>
+            <Post />
+          </AuthLayout>
+        )
       },
     ]
   }

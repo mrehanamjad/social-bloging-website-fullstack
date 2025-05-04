@@ -5,9 +5,13 @@ import { useForm } from 'react-hook-form';
 import appwriteCommentServices from '../appwrite/CommentConfig';
 import { useSelector } from 'react-redux';
 import { FaTimesCircle } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 function CommentForm({ postId, comment, onCommentAdded, parentCommentId, className }) {
     const userData = useSelector(state => state.auth.userData);
+    const status = useSelector((state) => state.auth.status);
+    const navigate = useNavigate();
+
     const [isCommenting, setIsCommenting] = React.useState(false);
     const [backendError, setBackendError] = React.useState("")
     const { register, handleSubmit, reset, formState: { errors }, } = useForm({
@@ -17,6 +21,12 @@ function CommentForm({ postId, comment, onCommentAdded, parentCommentId, classNa
     });
 
     const submit = async (data) => {
+
+        if (!status) {
+            navigate('/login')
+            return;
+        }
+
         setIsCommenting(true);
         if (comment) {
             try {

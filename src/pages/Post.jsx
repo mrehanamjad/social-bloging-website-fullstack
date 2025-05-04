@@ -18,9 +18,7 @@ export default function Post() {
 
     const { slug } = useParams()
     const navigate = useNavigate()
-
     const location = useLocation()
-
     const userData = useSelector((state) => state.auth.userData)
 
     const isAuthor = post && userData ? post.userId === userData.$id : false;
@@ -37,15 +35,21 @@ export default function Post() {
     }, [slug, navigate])
 
     const deletePost = () => {
-        appwriteService.deletePost(post.$id).then((status) => {
-            if (status) {
-                appwriteService.deleteFile(post.featuredImage);
-                navigate("/");
-            }
-        })
-    }
+        setIsPostDeleting(true)
+        try {
+            appwriteService.deletePost(post.$id).then((status) => {
+                if (status) {
+                    appwriteService.deleteFile(post.featuredImage);
+                    navigate("/");
+                }
+            })
+        } catch (error) {
+            console.log("Some error occured while deleting post")
 
-    console.log("post", post)
+        } finally {
+            setIsPostDeleting(false)
+        }
+    }
 
     const [showShareC, setShowShareC] = useState(false)
 
