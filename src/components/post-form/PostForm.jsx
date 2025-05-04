@@ -83,7 +83,9 @@ function PostForm({ post }) {
 
             if (error.message.toLowerCase().includes("id already exists")) {
                 setBackendError("Post with this slug (Name) already exists!");
-            } else if (error.message.toLowerCase().includes("missing required attribute")) {
+            } else if( error.message.toLowerCase().includes("no longer than ")) {
+                setBackendError("Post content characters limit exceeded. Please shorten your content.");
+            }else if (error.message.toLowerCase().includes("missing required attribute")) {
                 setBackendError("Please fill in all required fields.");
             } else if (error.message.toLowerCase().includes("invalid type for attribute")) {
                 setBackendError("Invalid data in one or more fields.");

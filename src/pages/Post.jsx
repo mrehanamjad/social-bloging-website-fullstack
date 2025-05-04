@@ -93,8 +93,8 @@ export default function Post() {
                             </div>
                         </div>
 
-                        <h1 className="text-4xl font-bold mb-2 ">{post.title}</h1>
-                        <div className='py-1   flex  items-center max-sm:flex-col'>
+                        <h1 className="text-3xl sm:text-4xl font-bold mb-2 ">{post.title}</h1>
+                        <div className='py-1   flex  items-center '>
                             <div className='flex gap-2'>
                                 <HashLink to='#comments' smooth >
                                     <Button varient='' className='flex justify-center items-center text-sm font-medium gap-2 my-1 bg-blue-100 text-blue-800 hover:bg-[#F5F5F5] hover:text-[#60A5FA]'>
