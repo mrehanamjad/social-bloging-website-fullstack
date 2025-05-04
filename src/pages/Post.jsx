@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import appwriteService from "../appwrite/config"
-import { Button, Container } from '../components'
+import { Button, Container, Loader } from '../components'
 import parse from 'html-react-parser'
 import { useSelector } from "react-redux"
 import { FaCommentAlt, FaShare } from 'react-icons/fa'
@@ -9,9 +9,13 @@ import { BiCalendar, BiUser } from 'react-icons/bi'
 import ShareCard from '../components/ShareCard'
 import Comments from '../components/Comments'
 import { HashLink } from 'react-router-hash-link';
+import DeletePostDialog from '../components/DeletePostDialog'
 
 export default function Post() {
     const [post, setPost] = useState(null)
+    const [isDialogOpen, setIsDialogOpen] = useState(false)
+    const [isPostDeleting, setIsPostDeleting] = useState(false)
+
     const { slug } = useParams()
     const navigate = useNavigate()
 
@@ -25,8 +29,6 @@ export default function Post() {
         if (slug) {
             appwriteService.getPost(slug).then((post) => {
                 console.log("post", post)
-    console.log("post profile pic", appwriteService.getFilePreview(post.featuredImage))
-
                 console.log("userData: ", userData)
                 if (post) setPost(post);
                 else navigate('/');
@@ -43,6 +45,7 @@ export default function Post() {
         })
     }
 
+    console.log("post", post)
 
     const [showShareC, setShowShareC] = useState(false)
 
@@ -58,14 +61,17 @@ export default function Post() {
                                 Edit
                             </Button>
                         </Link>
-                        <Button varient='red' onClick={deletePost}>
+                        <Button varient='red' onClick={() => setIsDialogOpen(true)}>
                             Delete
                         </Button>
                     </div>
                 )}
 
+                <DeletePostDialog isOpen={isDialogOpen} setIsOpen={setIsDialogOpen} handleDelete={deletePost} isDeleting={isPostDeleting} />
+
+
                 <div className="container mx-auto max-w-4xl px-6 py-12">
-                    
+
                     {/* Post Header */}
                     <header className="mb-6">
                         <div className="flex md:items-center max-md:flex-col gap-2 md:justify-between mb-4 md:mb-6">
@@ -88,15 +94,15 @@ export default function Post() {
                         <div className='py-1   flex  items-center max-sm:flex-col'>
                             <div className='flex gap-2'>
                                 <HashLink to='#comments' smooth >
-                                    <button className="cursor-pointer my-1 bg-blue-100 text-blue-800 relative inline-flex items-center justify-center gap-2 text-sm font-medium  hover:bg-[#F5F5F5] hover:text-[#60A5FA] h-9 rounded-md px-3">
+                                    <Button varient='' className='flex justify-center items-center text-sm font-medium gap-2 my-1 bg-blue-100 text-blue-800 hover:bg-[#F5F5F5] hover:text-[#60A5FA]'>
                                         <FaCommentAlt />
                                         Comment
-                                    </button>
+                                        </Button>
                                 </HashLink>
-                                <button onClick={() => setShowShareC(true)} className="cursor-pointer my-1 bg-blue-700 text-blue-100 relative inline-flex  items-center justify-center gap-2 text-sm font-medium  hover:bg-[#F5F5F5] hover:text-[#60A5FA] h-9 rounded-md px-3">
+                                <Button onClick={() => setShowShareC(true)} className="flex justify-center items-center text-sm font-medium gap-2 my-1 text-blue-100 relative  hover:bg-[#F5F5F5] hover:text-[#60A5FA]  bg-blue-700">
                                     <FaShare />
                                     Share
-                                </button>
+                                </Button>
                             </div>
                         </div>
                         <ShareCard shareUrl={`${window.location.origin}${location.pathname}${location.search}`} shareIconSize={'45'} showShareCard={showShareC} onClickCross={() => setShowShareC(false)} />
@@ -110,7 +116,7 @@ export default function Post() {
                             className="w-full rounded-lg shadow-md"
                         />
                     </figure>
-                    
+
 
                     {/* Post Content */}
                     <article className="prose lg:prose-xl mb-12">
@@ -125,5 +131,7 @@ export default function Post() {
 
             </Container>
         </div>
-    ) : null;
+    ) : (
+        <Loader />
+    );
 }
