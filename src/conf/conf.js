@@ -1,5 +1,3 @@
-// this is production level/industrial appoach of write in config file 
-// same for TypeScript
 
 const conf = {
     appwriteUrl : String(import.meta.env.VITE_APPWRITE_URL),

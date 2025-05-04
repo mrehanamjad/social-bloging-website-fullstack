@@ -51,7 +51,7 @@ function Header() {
     },
     {
       name: 'Search',
-      slug: '/all-posts',
+      slug: '/search',
       active: authStatus,
       icon: FaSearch
     }

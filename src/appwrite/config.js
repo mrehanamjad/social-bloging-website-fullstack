@@ -85,7 +85,7 @@ export class Services {
     }
 
     // all posts
-    async getPosts(queres) {
+    async getPosts(quries) {
 
         try {
             return await this.databases.listDocuments(
@@ -94,7 +94,7 @@ export class Services {
                 [
                     Query.equal("status", "active"),
                     Query.orderDesc('$updatedAt'),
-                    ...queres
+                    ...quries
                 ],
 
             )
@@ -106,7 +106,7 @@ export class Services {
 
 
 
-    async getMyPosts(userId, queres) {
+    async getMyPosts(userId, quries) {
         try {
             return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
@@ -114,7 +114,7 @@ export class Services {
                 [
                     Query.equal("userId", userId),
                     Query.orderDesc('$updatedAt'),
-                    ...queres
+                    ...quries
                 ],
             )
         } catch (error) {
@@ -123,12 +123,16 @@ export class Services {
         }
     }
 
-    async getSearchedPosts(searchText) {
+    async getSearchedPosts(searchText,quries) {
         try {
             return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                [Query.search(searchText), Query.orderDesc('$updatedAt')],
+                [
+                    Query.search("title",searchText),
+                    Query.orderDesc('$updatedAt'),
+                    ...quries
+                ],
             )
         } catch (error) {
             console.log("Appwrite :: getSearchedPosts :: error", error);

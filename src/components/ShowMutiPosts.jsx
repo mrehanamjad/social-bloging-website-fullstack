@@ -9,8 +9,7 @@ import { CategoryDropdown } from '../components/CardCarousel'
 function ShowMutiPosts({ postsData, loading,fetchPost,noMorePosts, notFoundObject = { title, description, link, btnText } }) {
     const renderContent = () => {
 
-        // No posts for my posts
-        if (postsData.length === 0 && !loading) {
+        if (postsData && postsData.length === 0 && !loading) {
             return (
                 <div className="flex flex-col items-center justify-center w-full py-16 text-center">
                     <FaNewspaper className="w-24 h-24 text-gray-300 mb-6" />
@@ -33,7 +32,7 @@ function ShowMutiPosts({ postsData, loading,fetchPost,noMorePosts, notFoundObjec
 
         return (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {postsData.map((post) => (
+                {postsData && postsData.map((post) => (
                     <div key={post.$id} className="w-full">
                         <PostCard {...post} />
                     </div>

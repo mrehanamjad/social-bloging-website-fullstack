@@ -3,7 +3,7 @@ import React,{useId,forwardRef} from 'react'
 const Input = forwardRef(function Input({
     label,
     type = 'text',
-    clasName = "", // mostly we set className value empty string
+    clasName = "", 
     ...props
 },ref) {
 

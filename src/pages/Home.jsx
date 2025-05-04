@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, PostCard, CardCarousel, Loader, Button } from '../components';
+import { Container,  CardCarousel,  Button } from '../components';
 import appwriteService from '../appwrite/config';
 import Hero from '../components/Hero';
 import { useDispatch, useSelector } from 'react-redux';

@@ -116,9 +116,6 @@ function PostForm({ post }) {
         return '';
     }, [])
 
-    // 🤔 interview question: How optimize when you call method in useEffect 
-    // 🙋 solution: store the method in a variable i.e subscription & unsubscribe it in return's callback. so that it does not call continuously.
-
     useEffect(() => {
         const subscription = watch((value, { name }) => {
             if (name === "title") {

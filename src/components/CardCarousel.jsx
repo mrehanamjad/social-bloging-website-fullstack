@@ -83,7 +83,6 @@ const CategoryCardCarousel = () => {
           <FaChevronLeft className="w-6 h-6" />
         </button>
 
-        {/* Card Carousel Container */}
         <div className="flex overflow-hidden rounded-xl w-full space-x-4">
           {CategoryCardData.map((category, index) => (
             <Link key={category.text} to={category.text === 'All' ? `/all-posts` : `/all-posts/category/${category.text}`}>
@@ -100,7 +99,7 @@ const CategoryCardCarousel = () => {
                 transition: 'transform 0.5s ease-in-out'
               }}
             >
-              {/* Background Image */}
+
               {category.bgImg && (
                 <img 
                   src={category.bgImg} 
@@ -126,7 +125,6 @@ const CategoryCardCarousel = () => {
           ))}
         </div>
 
-        {/* Navigation Button - Next */}
         <button 
           onClick={handleNext} 
           className="bg-gray-200 hover:bg-gray-300 rounded-full p-2 z-10"
@@ -135,7 +133,6 @@ const CategoryCardCarousel = () => {
         </button>
       </div>
 
-      {/* Pagination Dots */}
       <div className="flex justify-center mt-4 space-x-2">
         {CategoryCardData.map((_, index) => (
           <button

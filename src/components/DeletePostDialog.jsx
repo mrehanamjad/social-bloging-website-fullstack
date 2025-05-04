@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { BiTrash } from 'react-icons/bi';
 import Button from './Button';
 
 export default function DeletePostDialog({

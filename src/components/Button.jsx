@@ -4,7 +4,7 @@ function Button({
     children,
     type = "button",
     varient = 'blue', // varients are 'blue' | `white`| `red`
-    className = "", // mostly we set className value empty string
+    className = "", 
     isLoading = false,
     ...props
 }) {
