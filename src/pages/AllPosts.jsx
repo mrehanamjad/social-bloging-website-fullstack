@@ -27,18 +27,13 @@ function AllPosts({type}) {
         });
     }, []);
 
-    // Filter posts based on type and user
     useEffect(() => {
         let result = posts;
-        
-        // Filter by type
         if (type === 'my') {
             result = result.filter(post => 
                 userData && userData.$id === post.userId
             );
         }
-
-        // Filter by search term
         if (searchTerm) {
             result = result.filter(post => 
                 post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||

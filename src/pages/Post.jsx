@@ -25,6 +25,8 @@ export default function Post() {
         if (slug) {
             appwriteService.getPost(slug).then((post) => {
                 console.log("post", post)
+    console.log("post profile pic", appwriteService.getFilePreview(post.featuredImage))
+
                 console.log("userData: ", userData)
                 if (post) setPost(post);
                 else navigate('/');
@@ -40,6 +42,7 @@ export default function Post() {
             }
         })
     }
+
 
     const [showShareC, setShowShareC] = useState(false)
 
@@ -107,6 +110,7 @@ export default function Post() {
                             className="w-full rounded-lg shadow-md"
                         />
                     </figure>
+                    
 
                     {/* Post Content */}
                     <article className="prose lg:prose-xl mb-12">

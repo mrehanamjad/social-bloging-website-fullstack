@@ -1,22 +1,22 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, Input, Select, RTE } from '../index'
+import { Button, Input, Select, RTE, Loader } from '../index'
 import appwriteService from '../../appwrite/config'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { 
-  FaEdit, 
-  FaImage,  
-  FaTimesCircle, 
-  FaCalendarAlt, 
-  FaTag, 
-  FaSave 
+import {
+    FaEdit,
+    FaImage,
+    FaTimesCircle,
+    FaCalendarAlt,
+    FaTag,
+    FaSave
 } from 'react-icons/fa'
 
 function PostForm({ post }) {
-    const { 
+    const {
         register,
-        handleSubmit, 
+        handleSubmit,
         watch,
         setValue,
         control,
@@ -34,19 +34,20 @@ function PostForm({ post }) {
     const navigate = useNavigate()
     const userData = useSelector(state => state.auth.userData)
     const [previewImage, setPreviewImage] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
 
     function getCurrentDate() {
         const today = new Date();
-        return today.toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
+        return today.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
         });
     }
 
     const submit = async (data) => {
-        console.log('userData in postForm::',userData);
         try {
+            setIsLoading(true)
             if (post) {
                 const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
                 if (file) {
@@ -79,6 +80,8 @@ function PostForm({ post }) {
         } catch (error) {
             console.error("Error submitting post:", error);
             // TODO: Add user-friendly error handling
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -89,9 +92,9 @@ function PostForm({ post }) {
                 .toLowerCase()
                 .replace(/[^a-zA-z\d\s]+/g, '-')
                 .replace(/\s/g, '-')
-            
-            return transformedValue.length > 36 
-                ? transformedValue.substring(0, 33) + '--' 
+
+            return transformedValue.length > 36
+                ? transformedValue.substring(0, 33) + '--'
                 : transformedValue;
         }
         return '';
@@ -105,7 +108,7 @@ function PostForm({ post }) {
             if (name === "title") {
                 setValue('slug', slugTransform(value.title), { shouldValidate: true })
             }
-            
+
             // Image preview
             if (name === "image" && value.image && value.image[0]) {
                 const reader = new FileReader();
@@ -125,7 +128,7 @@ function PostForm({ post }) {
                 <FaEdit className="mr-3 text-blue-500" />
                 {post ? 'Update Post' : 'Create New Post'}
             </h2>
-            
+
             <form onSubmit={handleSubmit(submit)} className="grid md:grid-cols-2 gap-8">
                 {/* Left Column */}
                 <div className="space-y-6">
@@ -135,7 +138,7 @@ function PostForm({ post }) {
                             placeholder="Enter post title"
                             className="w-full border-2 border-gray-300 rounded-lg px-4 py-2 focus:border-blue-500 transition duration-300"
                             icon={<FaTag className="text-gray-400" />}
-                            {...register("title", { 
+                            {...register("title", {
                                 required: "Title is required",
                                 minLength: {
                                     value: 5,
@@ -145,7 +148,7 @@ function PostForm({ post }) {
                         />
                         {errors.title && (
                             <p className="text-red-500 text-sm mt-1 flex items-center">
-                                <FaTimesCircle className="mr-2" /> 
+                                <FaTimesCircle className="mr-2" />
                                 {errors.title.message}
                             </p>
                         )}
@@ -161,11 +164,11 @@ function PostForm({ post }) {
                         />
                     </div>
 
-                    <RTE 
-                        label="Content" 
-                        name="content" 
-                        control={control} 
-                        defaultValue={getValues("content")} 
+                    <RTE
+                        label="Content"
+                        name="content"
+                        control={control}
+                        defaultValue={getValues("content")}
                     />
                 </div>
 
@@ -174,9 +177,9 @@ function PostForm({ post }) {
                     <Select
                         label="Category"
                         options={[
-                            'Technology', 'Life & Culture', 'Business & Finance', 
-                            'Health & Fitness', 'Creative Writing', 
-                            'Travel & Adventure', 'Food & Cooking', 
+                            'Technology', 'Life & Culture', 'Business & Finance',
+                            'Health & Fitness', 'Creative Writing',
+                            'Travel & Adventure', 'Food & Cooking',
                             'Entertainment & Sports Media', 'Self-Improvement'
                         ]}
                         className="w-full"
@@ -193,8 +196,8 @@ function PostForm({ post }) {
                                     type="file"
                                     accept="image/png, image/jpg, image/jpeg, image/gif"
                                     className="hidden"
-                                    {...register("image", { 
-                                        required: !post && "Featured image is required" 
+                                    {...register("image", {
+                                        required: !post && "Featured image is required"
                                     })}
                                 />
                                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-blue-500 transition">
@@ -216,7 +219,7 @@ function PostForm({ post }) {
                         </div>
                         {errors.image && (
                             <p className="text-red-500 text-sm mt-1 flex items-center">
-                                <FaTimesCircle className="mr-2" /> 
+                                <FaTimesCircle className="mr-2" />
                                 {errors.image.message}
                             </p>
                         )}
@@ -236,10 +239,11 @@ function PostForm({ post }) {
                         </span>
                     </div>
 
-                    <Button 
-                        type="submit" 
-                        varient='blue' 
+                    <Button
+                        type="submit"
+                        varient='blue'
                         className="w-full flex items-center justify-center space-x-2 py-3"
+                        isLoading={isLoading}
                     >
                         <FaSave />
                         <span>{post ? 'Update Post' : 'Publish Post'}</span>

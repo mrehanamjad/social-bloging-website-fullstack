@@ -12,9 +12,11 @@ function Signup() {
     const navigate = useNavigate()
     const { register, handleSubmit } = useForm()
     const [error, setError] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
 
     const create = async (data) => {
         setError("");
+        setIsLoading(true);
         try {
           const accountCreated = await authService.createAccount(data); // Await added here
           if (accountCreated) {
@@ -29,6 +31,8 @@ function Signup() {
           }
         } catch (error) {
           setError(error.message);
+        } finally {
+          setIsLoading(false);
         }
       };
     
@@ -81,7 +85,7 @@ function Signup() {
                                 required: true,
                             })}
                         />
-                        <Button type="submit" className="w-full" >Create Account</Button>
+                        <Button className={"flex justify-center items-center w-full"} type="submit" isLoading={isLoading} >Create Account</Button>
                     </div>
                 </form>
             </div>

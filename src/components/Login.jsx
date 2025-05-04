@@ -10,10 +10,12 @@ function Login() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [error, setError] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
     const { register, handleSubmit } = useForm()
 
     const login = async (data) => {
         setError("")
+        setIsLoading(true)
         try {
             const session = await authService.login(data)
             if (session) {
@@ -22,6 +24,8 @@ function Login() {
                 navigate('/')            }
         } catch (error) {
             setError(error.message)
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -46,20 +50,17 @@ function Login() {
                     </Link>
                 </p>
                 {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
-                {/* see above line carefully */}
                 <form onSubmit={handleSubmit(login)} className='mt-8'>
                     <div className='space-y-5'>
                         <Input
                             label="Email: "
                             placeholder="Enter your email"
                             type="email"
-                            // react-hook-form :
-                            {...register("email", { // ...(spread operator) must use
+                            {...register("email", { 
                                 required: true,
                                 validate: { // pattern
                                     matchPatern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
                                         "Email address must be a valid address",
-                                    // the above is regex pattern (regular expression) : use chatGpt or go to https://regexr.com and get from community paterns
                                 }
                             })}
                         />
@@ -69,10 +70,9 @@ function Login() {
                             placeholder="Enter your password"
                             {...register("password", {
                                 required: true,
-                                // if you want to validate then do
                             })}
                         />
-                        <Button type="submit" className="w-full" >Sign in</Button>
+                        <Button type="submit" className="w-full flex justify-center items-center" isLoading={isLoading} >Sign in</Button>
                     </div>
                 </form>
             </div>
