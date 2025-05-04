@@ -1,20 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import { Button, Container, Input, Loader, PostCard } from '../components'
-import appwriteService from '../appwrite/config'
-import { useSelector } from 'react-redux'
+import React from 'react'
+import { Button,  Loader, PostCard } from '../components'
 import { Link } from 'react-router-dom'
 import { FaNewspaper, FaPen, FaSearch } from 'react-icons/fa'
-import { CategoryDropdown } from '../components/CardCarousel'
 
 const defaultNotFound = {
     title: "No Posts Found",
     description: "Try creating your first post.",
     link: "/create",
     btnText: "Create Post",
-    btnIcon: FaPen
   };
 
-function ShowMutiPosts({ postsData, loading,fetchPost,noMorePosts, notFoundObject = defaultNotFound }) {
+function ShowMutiPosts({ postsData, loading,fetchPost,noMorePosts, notFoundObject = defaultNotFound,notFoundBtnIcon=true }) {
     const renderContent = () => {
 
         if (postsData && postsData.length === 0 && !loading) {
@@ -30,7 +26,7 @@ function ShowMutiPosts({ postsData, loading,fetchPost,noMorePosts, notFoundObjec
 
                     {notFoundObject.btnText && <Link to={`${notFoundObject.link}`}>
                         <Button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white">
-                            <notFoundObject.btnIcon size={20} />
+                            {notFoundBtnIcon && < FaPen size={20} />}
                             {notFoundObject.btnText}
                         </Button>
                     </Link>}

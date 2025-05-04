@@ -26,12 +26,8 @@ export default function Post() {
     useEffect(() => {
         if (slug) {
             appwriteService.getPost(slug).then((post) => {
-                console.log("post", post)
-                console.log("userData: ", userData)
                 if (post) setPost(post);
                 else navigate('/');
-
-                console.log("post",post)
             }).catch((error) => error)
         } else navigate("/");
         window.scrollTo(0, 0);

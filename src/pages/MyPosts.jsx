@@ -16,7 +16,6 @@ function MyPosts() {
 
   async function fetchPost() {
         setLoading(true)
-        console.log("i am fetching ...")
             try {
                 const posts = postsData.lastMyPostId ? await appwriteService.getMyPosts(userData.$id,[Query.limit(8), Query.cursorAfter(postsData.lastAllPostId),]) : await appwriteService.getMyPosts(userData.$id,[Query.limit(8),]);
                 if (posts) {
@@ -25,7 +24,6 @@ function MyPosts() {
                         lastMyPostId: posts.documents.at(-1)?.$id || null
                     }));
                 }
-                console.log(postsData.noMoreMyPosts)
                 if (!posts || (posts && posts.documents.length < 8)) {
                     dispatch(setNoMoreMyPosts())
                 }

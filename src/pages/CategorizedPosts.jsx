@@ -87,8 +87,7 @@ function CategorizedPosts() {
                         description: "Check back later or explore other categories",
                         btnText: "Browse All Posts",
                         link: "/all-posts",
-                        btnIcon: FaTag
-                    }} />
+                    }} notFoundBtnIcon={false} />
             </Container>
         </div>
     )

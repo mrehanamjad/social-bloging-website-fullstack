@@ -25,9 +25,7 @@ function Home() {
                     lastAllPostId: posts.documents.at(-1)?.$id || null
                 }));
             }
-            console.log(postsData.noMoreAllPosts)
             if (!posts || (posts && posts.documents.length < 8)) {
-                console.log("less than 8")
                 dispatch(setNoMoreAllPosts())
             }
         } catch (error) {
