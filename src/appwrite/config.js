@@ -1,15 +1,10 @@
-// in this we do both in same file but remember:
-// the best practice industry standard is to keep storage service in seperate file so that it become reuseable 
-
-// many similaries asauth.js
-
 import conf from "../conf/conf";
 import { Client, ID, Databases, Storage, Query, Account } from "appwrite";
 
 export class Services {
     client = new Client()
     databases; // variable
-    bucket; // in dorcs they say it stoage. its a veriable so you can give name as you wish
+    bucket; // in docs they say it stoage. its a veriable so you can give name as you wish
 
     constructor() {
         this.client
@@ -24,7 +19,7 @@ export class Services {
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                slug, //we used slug for document_id
+                slug, // document_id
                 {
                     title,
                     content,
@@ -89,18 +84,13 @@ export class Services {
 
     // all posts
     async getPosts(queres = [Query.equal("status", "active")]) {
-        // here in above parameter: queries are jus variable the main thing is [Query.equal("status","active")]
-        // in [Query.equal("status","active")], status is keythat me created in appwrite website -> databases -> blog -> Articles -> indexes
-        // we can also add more in quesries -> read docs
-        // using enums is more better.
 
         try { 
             return await this.databases.listDocuments( //returns array
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                queres, // we can also define quries here instude of defining in above parameter -> read docs
-
-                // here we can also add paginations --> read docs
+                queres, 
+                // TODO: add paginations 
             )
         } catch (error) {
             console.log("Appwrite :: getPosts :: error", error);
@@ -108,16 +98,13 @@ export class Services {
         }
     }
 
-
-    // upload file sevice  (homeWork: do this in separate file)
-
-    async uploadFile(file) { // pass complete file as parameter not file name
+    async uploadFile(file) { 
         try {
             return await this.bucket.createFile(
                 conf.appwriteBucketId,
                 ID.unique(),
                 file
-            ) // here return will be fileId which we pass in getFilePreview, deleteFile etc methods
+            )
 
         } catch (error) {
             console.log("Appwrite :: uploadFile:: error", error);
@@ -138,9 +125,9 @@ export class Services {
         }
     }
 
-    getFilePreview(fileId) { // returns image url
+    getFilePreview(fileId) { 
         try {
-            return this.bucket.getFilePreview(
+            return this.bucket.getFileView(
                 conf.appwriteBucketId,
                 fileId
             )
