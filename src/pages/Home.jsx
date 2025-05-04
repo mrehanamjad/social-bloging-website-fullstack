@@ -1,30 +1,52 @@
 import React, { useEffect, useState } from 'react';
-import { Container, PostCard,  CardCarousel, Loader } from '../components';
+import { Container, PostCard, CardCarousel, Loader, Button } from '../components';
 import appwriteService from '../appwrite/config';
 import Hero from '../components/Hero';
+import { useDispatch, useSelector } from 'react-redux';
+import ShowMutiPosts from '../components/ShowMutiPosts';
+import { Query } from 'appwrite';
+import { setAllPosts, setNoMoreAllPosts } from '../store/postsSlice';
+import { Link } from 'react-router-dom';
 
 
 function Home() {
-    const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(false);
-    
+    const [loading, setLoading] = useState(false)
+    const postsData = useSelector(state => state.posts)
+    const dispatch = useDispatch()
+
+
+    async function fetchPost() {
+        setLoading(true)
+        try {
+            const posts = postsData.lastAllPostId ? await appwriteService.getPosts([Query.limit(8), Query.cursorAfter(postsData.lastAllPostId)]) : await appwriteService.getPosts([Query.limit(8),]);
+            if (posts) {
+                dispatch(setAllPosts({
+                    allPostData: posts.documents,
+                    lastAllPostId: posts.documents.at(-1)?.$id || null
+                }));
+            }
+            console.log(postsData.noMoreAllPosts)
+            if (!posts || (posts && posts.documents.length < 8)) {
+                console.log("less than 8")
+                dispatch(setNoMoreAllPosts())
+            }
+        } catch (error) {
+            console.error('Error fetching posts:', error);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     useEffect(() => {
-            setLoading(true); 
-            appwriteService.getPosts().then((postsData) => {
-                if (postsData) {
-                    setPosts(postsData.documents);
-                }
-                setLoading(false); 
-            }).catch(error => {
-                console.error("Error fetching posts:", error);
-                setLoading(false);
-            });
-    }, []); 
+        if (!postsData.lastAllPostId) {
+            fetchPost();
+        }
+    }, []);
+
 
     return (
         <div className='w-full bg-gray-50'>
-            
+
             <Hero />
             <Container>
                 <section className="bg-white my-12 shadow-lg rounded-xl w-full container mx-auto py-16 px-6">
@@ -49,46 +71,13 @@ function Home() {
                             </p>
                         </div>
 
-                        {/* {!status && posts.length === 0 ? (
-                            <div className="text-center py-12">
-                                <h3 className="text-2xl font-semibold text-gray-700 mb-4">
-                                    Discover Amazing Stories
-                                </h3>
-                                <p className="text-gray-600 mb-6">
-                                    Login to unlock a world of fascinating reads and create your own.
-                                </p>
-                                <Link to="/login">
-                                    <Button className="bg-blue-600 text-white hover:bg-blue-700">
-                                        Login to Read
-                                    </Button>
-                                </Link>
-                            </div>
-                        ) : ( */}
-                            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
-                                {loading ? (
-                                    <div className="col-span-full flex justify-center">
-                                        <Loader />
-                                    </div>
-                                ) : (
-                                    posts.length > 0 ? (
-                                        posts.map((post) => (
-                                            <div key={post.$id} className='w-full'>
-                                                <PostCard {...post} />
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <div className="col-span-full text-center py-12">
-                                            <h3 className="text-2xl font-semibold text-gray-700 mb-4">
-                                                No Posts Available
-                                            </h3>
-                                            <p className="text-gray-600">
-                                                Be the first to create a post and start sharing your story!
-                                            </p>
-                                        </div>
-                                    )
-                                )}
-                            </div>
-                        {/* )} */}
+
+                        <ShowMutiPosts fetchPost={() => { }} loading={loading} postsData={postsData.allPostData} noMorePosts={true} notFoundObject={{ title: "No Posts Available", description: "Be the first to create a post and start sharing your story!" }} />
+                        <div className='flex justify-center items-center mt-3'>
+                            <Link to={"/all-posts"} >
+                                <Button varient='white' className='px-12'>View All</Button>
+                            </Link>
+                        </div>
                     </div>
                 </section>
             </Container>

@@ -15,7 +15,7 @@ function UserDropdown() {
             </button>
 
             {isUserMenuOpen && (
-                <UserManu width='60' />
+                <UserManu />
             )}
         </div>
     )

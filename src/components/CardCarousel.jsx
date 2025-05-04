@@ -162,9 +162,9 @@ export const CategoryDropdown = () => {
         className="
           w-full flex items-center justify-between 
           bg-blue-500 text-white 
-          px-4 py-2 rounded-lg 
+          px-4 py-2 rounded-3xl 
           hover:bg-blue-600 
-          transition duration-300
+          transition duration-300 
         "
       >
         <span className="flex items-center">

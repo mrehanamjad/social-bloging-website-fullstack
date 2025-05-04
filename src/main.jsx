@@ -7,6 +7,8 @@ import store from './store/store.js'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Home, Login, Signup, AllPosts, AddPost, EditPost, Post, CategorizedPosts } from './pages'
 import { AuthLayout } from './components/index.js'
+import SearchPage from './pages/SearchPage.jsx'
+import MyPosts from './pages/MyPosts.jsx'
 
 
 const router = createBrowserRouter([
@@ -36,28 +38,20 @@ const router = createBrowserRouter([
       },
       {
         path: '/all-posts',
-        element: (
-          <AuthLayout authentication={false} >
-            {" "}
-            <AllPosts type={'all'} />
-          </AuthLayout>
-        )
+        element: <AllPosts type={'all'} />
+
       },
       {
         path: '/my-posts',
         element: (
           <AuthLayout authentication >
-            <AllPosts type={'my'} />
+            <MyPosts />
           </AuthLayout>
         )
       },
       {
         path: '/all-posts/category/:slug',
-        element: (
-          <AuthLayout authentication={false} >
-            <CategorizedPosts />
-          </AuthLayout>
-        )
+        element: <CategorizedPosts />
       },
       {
         path: '/add-post',
@@ -79,20 +73,20 @@ const router = createBrowserRouter([
       },
       {
         path: '/post/:slug',
-        element: (
-          <AuthLayout authentication={false}>
-            <Post />
-          </AuthLayout>
-        )
+        element: <Post />
       },
+      {
+        path: '/search',
+        element: <SearchPage />
+      }
     ]
   }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
+  // </React.StrictMode>,
 )

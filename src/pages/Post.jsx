@@ -30,6 +30,8 @@ export default function Post() {
                 console.log("userData: ", userData)
                 if (post) setPost(post);
                 else navigate('/');
+
+                console.log("post",post)
             }).catch((error) => error)
         } else navigate("/");
     }, [slug, navigate])
