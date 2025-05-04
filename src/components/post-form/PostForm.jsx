@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, Input, Select, RTE, Loader } from '../index'
+import { Button, Input, Select, RTE } from '../index'
 import appwriteService from '../../appwrite/config'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -35,6 +35,7 @@ function PostForm({ post }) {
     const userData = useSelector(state => state.auth.userData)
     const [previewImage, setPreviewImage] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
+    const [backendError, setBackendError] = useState("")
 
     function getCurrentDate() {
         const today = new Date();
@@ -79,9 +80,24 @@ function PostForm({ post }) {
             }
         } catch (error) {
             console.error("Error submitting post:", error);
-            // TODO: Add user-friendly error handling
+
+            if (error.message.toLowerCase().includes("id already exists")) {
+                setBackendError("Post with this slug (Name) already exists!");
+            } else if (error.message.toLowerCase().includes("missing required attribute")) {
+                setBackendError("Please fill in all required fields.");
+            } else if (error.message.toLowerCase().includes("invalid type for attribute")) {
+                setBackendError("Invalid data in one or more fields.");
+            } else if (error.message.toLowerCase().includes("unauthorized")) {
+                setBackendError("You don't have permission to perform this action.");
+            } else if (error.message.toLowerCase().includes("invalid file")) {
+                setBackendError("Please upload a valid image file.");
+            } else {
+                setBackendError("Something went wrong. Please try again.");
+            }
+
         } finally {
             setIsLoading(false)
+
         }
     }
 
@@ -94,7 +110,7 @@ function PostForm({ post }) {
                 .replace(/\s/g, '-')
 
             return transformedValue.length > 36
-                ? transformedValue.substring(0, 33) + '--'
+                ? transformedValue.substring(0, 33) + "-" + (Math.floor(Math.random() * 90) + 10)
                 : transformedValue;
         }
         return '';
@@ -109,7 +125,6 @@ function PostForm({ post }) {
                 setValue('slug', slugTransform(value.title), { shouldValidate: true })
             }
 
-            // Image preview
             if (name === "image" && value.image && value.image[0]) {
                 const reader = new FileReader();
                 reader.onloadend = () => {
@@ -248,6 +263,7 @@ function PostForm({ post }) {
                         <FaSave />
                         <span>{post ? 'Update Post' : 'Publish Post'}</span>
                     </Button>
+                    <div className='text-red-500 py-3 px-2'>{backendError}</div>
                 </div>
             </form>
         </div>
