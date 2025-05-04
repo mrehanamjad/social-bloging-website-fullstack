@@ -4,11 +4,13 @@ import { IoMdSend } from 'react-icons/io';
 import { useForm } from 'react-hook-form';
 import appwriteCommentServices from '../appwrite/CommentConfig';
 import { useSelector } from 'react-redux';
+import { FaTimesCircle } from 'react-icons/fa';
 
 function CommentForm({ postId, comment, onCommentAdded, parentCommentId, className }) {
     const userData = useSelector(state => state.auth.userData);
     const [isCommenting, setIsCommenting] = React.useState(false);
-    const { register, handleSubmit, reset } = useForm({
+    const [backendError, setBackendError] = React.useState("")
+    const { register, handleSubmit, reset, formState: { errors }, } = useForm({
         defaultValues: {
             commentText: comment?.commentText || '',
         }
@@ -28,6 +30,7 @@ function CommentForm({ postId, comment, onCommentAdded, parentCommentId, classNa
                 if (updatedComment) onCommentAdded();
             } catch (error) {
                 console.log(error);
+                setBackendError("Something went wrong, please try again later");
             }
         } else {
             try {
@@ -40,6 +43,7 @@ function CommentForm({ postId, comment, onCommentAdded, parentCommentId, classNa
                 if (newComment) onCommentAdded();
             } catch (error) {
                 console.log(error);
+                setBackendError("Something went wrong, please try again later");
             }
         }
 
@@ -51,8 +55,20 @@ function CommentForm({ postId, comment, onCommentAdded, parentCommentId, classNa
         <form onSubmit={handleSubmit(submit)} className={`w-full flex flex-col ${className}`}>
             <InputArea
                 placeholder={parentCommentId ? 'Write a reply...' : "Write a Comment..."}
-                {...register('commentText', { required: true })}
+                {...register('commentText', { required: "Comment is required" })}
             />
+            {errors.commentText && (
+                <p className="text-red-500 text-sm mt-1 flex items-center">
+                    <FaTimesCircle className="mr-2" />
+                    {errors.commentText.message}
+                </p>
+            )}
+            {backendError && (
+                <p className="text-red-500 text-sm mt-1 flex items-center">
+                    <FaTimesCircle className="mr-2" />
+                    {backendError}
+                </p>
+            )}
             <Button isLoading={isCommenting} disabled={isCommenting} className={`self-end mx-1`}>
                 {parentCommentId ? (comment ? 'Update' : 'Reply') : (comment ? 'Update' : 'Comment')} <IoMdSend className='inline-block' />
             </Button>

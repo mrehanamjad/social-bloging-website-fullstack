@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import { Container, Logo, LogoutBtn } from '../index'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { FaBars, FaHome, FaPlus, FaList, FaUser, FaSignInAlt, FaUserPlus } from 'react-icons/fa'
+import { FaBars, FaHome, FaPlus, FaList, FaUser, FaSignInAlt, FaUserPlus, FaSearch } from 'react-icons/fa'
 import { IoClose } from 'react-icons/io5'
+import UserManu from './UserManu'
+import UserDropdown from './UserDropdown'
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status)
@@ -47,6 +49,12 @@ function Header() {
       active: authStatus,
       icon: FaPlus
     },
+    {
+      name: 'Search',
+      slug: '/all-posts',
+      active: authStatus,
+      icon: FaSearch
+    }
   ]
 
   const NavButton = ({ item, onClick }) => (
@@ -59,7 +67,7 @@ function Header() {
          `}
     >
       <item.icon className="mr-2 " />
-      <span className="text-sm font-medium">{item.name}</span>
+      {item.name && item.name !== "Search" && <span className="text-sm font-medium">{item.name}</span>}
     </button>
   )
 
@@ -82,7 +90,7 @@ function Header() {
             ))}
           </div>
             
-            {authStatus && <LogoutBtn className="ml-4" />}
+            {authStatus && <UserDropdown />}
         </nav>
 
         {/* Mobile Navigation */}
@@ -127,7 +135,7 @@ function Header() {
               
               {authStatus && (
                 <div className="px-4 py-3">
-                  <LogoutBtn className="w-full" />
+                  <UserManu width='full' className='px-1' />
                 </div>
               )}
             </div>
