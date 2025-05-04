@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button,  Loader, PostCard } from '../components'
 import { Link } from 'react-router-dom'
-import { FaNewspaper, FaPen, FaSearch } from 'react-icons/fa'
+import { FaNewspaper, FaPen } from 'react-icons/fa'
 
 const defaultNotFound = {
     title: "No Posts Found",

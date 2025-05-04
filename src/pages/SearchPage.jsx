@@ -1,6 +1,5 @@
 import React from 'react'
 import { Button, Container, Input } from '../components'
-import { CategoryDropdown } from '../components/CardCarousel'
 import { FaSearch } from 'react-icons/fa'
 import appwriteService from '../appwrite/config'
 import { Query } from 'appwrite'

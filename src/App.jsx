@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import conf from './conf/conf'
 import authService from './appwrite/auth'
 import { login, logout } from './store/authSlice'
 import { Outlet } from 'react-router-dom'
