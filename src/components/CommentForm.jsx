@@ -36,7 +36,8 @@ function CommentForm({ postId, comment, onCommentAdded, parentCommentId, classNa
                     postId,
                     userName: userData.name,
                     userId: userData.$id,
-                    parentCommentId: parentCommentId
+                    parentCommentId: parentCommentId,
+                    articles: postId
                 });
                 if (updatedComment) onCommentAdded();
             } catch (error) {
@@ -50,7 +51,8 @@ function CommentForm({ postId, comment, onCommentAdded, parentCommentId, classNa
                     postId,
                     userName: userData.name,
                     userId: userData.$id,
-                    parentCommentId: parentCommentId
+                    parentCommentId: parentCommentId,
+                    articles: postId
                 });
                 if (newComment) onCommentAdded();
             } catch (error) {

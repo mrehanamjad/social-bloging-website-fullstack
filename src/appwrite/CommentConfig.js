@@ -12,7 +12,7 @@ class CommentServices {
         this.databases = new Databases(this.client)
     }
 
-    async createComment({ postId, userId,userName, commentText, parentCommentId }) {
+    async createComment({ postId, userId,userName, commentText, parentCommentId, articles }) {
         try {
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
@@ -23,7 +23,8 @@ class CommentServices {
                     userId,
                     userName,
                     commentText,
-                    parentCommentId
+                    parentCommentId,
+                    articles
                 }
             )
         } catch (error) {
@@ -33,7 +34,7 @@ class CommentServices {
 
     async updateComment(
         commentId,
-        { postId, userId,userName, commentText, parentCommentId },
+        { postId, userId,userName, commentText, parentCommentId, articles },
     ) {
         try {
             return await this.databases.updateDocument(
@@ -45,7 +46,8 @@ class CommentServices {
                     userId,
                     userName,
                     commentText,
-                    parentCommentId
+                    parentCommentId,
+                    articles
                 }
             )
 
