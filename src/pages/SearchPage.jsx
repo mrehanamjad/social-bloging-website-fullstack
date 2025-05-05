@@ -31,6 +31,7 @@ function SearchPage() {
 
         } catch (error) {
             console.log(error)
+            setNoMorePosts(true)
         } finally {
             setIsLoading(false)
         }

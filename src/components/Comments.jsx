@@ -18,6 +18,7 @@ function Comments({ postId }) {
       .getComments(postId)
       .then((postComments) => {
         setComments(postComments.documents || []);
+        console.log("comment ",postComments.documents)
       })
       .catch((error) => console.error("Error fetching comments:", error));
   };
@@ -116,6 +117,8 @@ function ShowComment({
     });
   };
 
+
+
   return (
     <div className="">
       <div className="bg-gray-50 rounded-lg p-4 mb-4">
@@ -139,7 +142,7 @@ function ShowComment({
                   className="w-8 h-8 rounded-full mr-3"
                 />
                 <div>
-                  <h4 className="font-semibold text-gray-800">{comment.userName || 'rehan'}</h4>
+                  <h4 className="font-semibold text-gray-800">{comment.userName || 'Anonymous'}</h4>
                   <p className="text-xs text-gray-500">
                     {formatDate(comment.$createdAt)}
                   </p>

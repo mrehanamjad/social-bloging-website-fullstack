@@ -30,7 +30,7 @@ const CategoryCardData = [
     bgImg: 'https://images.pexels.com/photos/2803158/pexels-photo-2803158.jpeg?auto=compress&cs=tinysrgb&w=600',
   },
   {
-    text: 'Creative Writing',
+    text: 'Art & Creativity',
     className: '',
     bgImg: 'https://images.pexels.com/photos/5554771/pexels-photo-5554771.jpeg?auto=compress&cs=tinysrgb&w=600',
   },

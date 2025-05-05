@@ -192,7 +192,7 @@ function PostForm({ post }) {
                         label="Category"
                         options={[
                             'Technology', 'Life & Culture', 'Business & Finance',
-                            'Health & Fitness', 'Creative Writing',
+                            'Health & Fitness', 'Art & Creativity',
                             'Travel & Adventure', 'Food & Cooking',
                             'Entertainment & Sports Media', 'Self-Improvement'
                         ]}

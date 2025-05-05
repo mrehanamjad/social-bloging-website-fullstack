@@ -93,7 +93,7 @@ export class Services {
                 conf.appwriteCollectionId,
                 [
                     Query.equal("status", "active"),
-                    Query.orderDesc('$updatedAt'),
+                    Query.orderDesc('$createdAt'),
                     ...quries
                 ],
 
@@ -113,7 +113,7 @@ export class Services {
                 conf.appwriteCollectionId,
                 [
                     Query.equal("userId", userId),
-                    Query.orderDesc('$updatedAt'),
+                    Query.orderDesc('$createdAt'),
                     ...quries
                 ],
             )
@@ -130,7 +130,7 @@ export class Services {
                 conf.appwriteCollectionId,
                 [
                     Query.equal("category", category),
-                    Query.orderDesc('$updatedAt'),
+                    Query.orderDesc('$createdAt'),
                     ...quries
                 ],
             )
@@ -147,7 +147,7 @@ export class Services {
                 conf.appwriteCollectionId,
                 [
                     Query.search("title",searchText),
-                    Query.orderDesc('$updatedAt'),
+                    Query.orderDesc('$createdAt'),
                     ...quries
                 ],
             )

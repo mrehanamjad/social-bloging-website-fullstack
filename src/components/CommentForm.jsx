@@ -34,6 +34,7 @@ function CommentForm({ postId, comment, onCommentAdded, parentCommentId, classNa
                 const updatedComment = await appwriteCommentServices.updateComment(comment.$id, {
                     ...data,
                     postId,
+                    userName: userData.name,
                     userId: userData.$id,
                     parentCommentId: parentCommentId
                 });
@@ -47,6 +48,7 @@ function CommentForm({ postId, comment, onCommentAdded, parentCommentId, classNa
                 const newComment = await appwriteCommentServices.createComment({
                     ...data,
                     postId,
+                    userName: userData.name,
                     userId: userData.$id,
                     parentCommentId: parentCommentId
                 });

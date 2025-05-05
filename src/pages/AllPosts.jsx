@@ -29,6 +29,7 @@ function AllPosts() {
             }
         } catch (error) {
             console.error('Error fetching posts:', error);
+            dispatch(setNoMoreAllPosts())
         } finally {
             setLoading(false);
         }

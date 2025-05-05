@@ -15,8 +15,8 @@ function Footer() {
 
                 </p>
                 <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 gap-3 justify-center sm:justify-start">
-                    <Link to="https://www.linkedin.com/in/mrehanamjad/" target='_blank' ><FaGithub className='text-3xl cursor-pointer hover:text-blue-600' /></Link>
-                    <Link to="https://github.com/mrehanamjad" target='_blank'> <FaLinkedin className='text-3xl cursor-pointer hover:text-blue-600' /></Link>
+                    <Link to="https://github.com/mrehanamjad/" target='_blank' ><FaGithub className='text-3xl cursor-pointer hover:text-blue-600' /></Link>
+                    <Link to="https://www.linkedin.com/in/mrehanamjad/" target='_blank'> <FaLinkedin className='text-3xl cursor-pointer hover:text-blue-600' /></Link>
                 </span>
             </div>
         </footer>
