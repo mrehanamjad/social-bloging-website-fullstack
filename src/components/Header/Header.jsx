@@ -79,18 +79,18 @@ function Header() {
           <Link to='/' className="flex items-center">
             <Logo />
           </Link>
-          
+
           <div className="flex items-center space-x-2">
-            {navItems.map((item) => item.active && (
-              <NavButton 
-                key={item.name} 
-                item={item} 
-                onClick={() => navigate(item.slug)} 
+            {navItems.filter(item => item.active).map(item => (
+              <NavButton
+                key={item.name}
+                item={item}
+                onClick={() => navigate(item.slug)}
               />
             ))}
           </div>
-            
-            {authStatus && <UserDropdown />}
+
+          {authStatus && <UserDropdown />}
         </nav>
 
         {/* Mobile Navigation */}
@@ -98,9 +98,9 @@ function Header() {
           <Link to='/' className="flex items-center">
             <Logo />
           </Link>
-          
+
           <div>
-            <button 
+            <button
               className="text-gray-600 focus:outline-none"
               onClick={() => setShowNavBar(!showNavBar)}
             >
@@ -117,9 +117,9 @@ function Header() {
         {showNavBar && (
           <div className="md:hidden absolute left-0 right-0 z-50 bg-white shadow-lg">
             <div className="flex flex-col divide-y divide-gray-200">
-              {navItems.map((item) => item.active && (
-                <div 
-                  key={item.name} 
+              {navItems.filter(item => item.active).map(item => (
+                <div
+                  key={item.name}
                   className="px-4 py-3 hover:bg-gray-50 transition-colors"
                   onClick={() => {
                     navigate(item.slug)
@@ -131,8 +131,9 @@ function Header() {
                     <span className="text-sm font-medium">{item.name}</span>
                   </div>
                 </div>
-              ))}
-              
+              ))
+              }
+
               {authStatus && (
                 <div className="px-4 py-3">
                   <UserManu width='full' className='px-1' />
