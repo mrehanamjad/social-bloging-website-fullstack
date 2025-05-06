@@ -15,7 +15,7 @@ function UserDropdown() {
             </button>
 
             {isUserMenuOpen && (
-                <UserManu />
+                <UserManu onClick={() => setIsUserMenuOpen(false)} />
             )}
         </div>
     )

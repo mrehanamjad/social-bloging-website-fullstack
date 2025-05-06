@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import authService from '../appwrite/auth'
-import { Link,  useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { login as storeLogin } from '../store/authSlice'
 import { Button, Input, Logo } from './index'
 import { useDispatch } from 'react-redux'
@@ -18,24 +18,24 @@ function Signup() {
         setError("");
         setIsLoading(true);
         try {
-          const accountCreated = await authService.createAccount(data); // Await added here
-          if (accountCreated) {
-            const session = await authService.login(data);
-            if (session) {
-              const currentUser = await authService.getCurrentUser(); // Await added here
-              if (currentUser) {
-                dispatch(storeLogin(currentUser));
-                navigate('/');
-              }
+            const accountCreated = await authService.createAccount(data); // Await added here
+            if (accountCreated) {
+                const session = await authService.login(data);
+                if (session) {
+                    const userData = await authService.getCurrentUser(); // Await added here
+                    if (userData) {
+                        dispatch(storeLogin({ userData }));
+                        navigate('/');
+                    }
+                }
             }
-          }
         } catch (error) {
-          setError(error.message);
+            setError(error.message);
         } finally {
-          setIsLoading(false);
+            setIsLoading(false);
         }
-      };
-    
+    };
+
     return (
         <div className="flex items-center justify-center">
             <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
