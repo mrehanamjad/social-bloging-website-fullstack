@@ -19,9 +19,11 @@ function Login() {
         try {
             const session = await authService.login(data)
             if (session) {
+                console.log("session :: :: ",session)
                 const userData = await authService.getCurrentUser()
-                if (userData) dispatch(storeLogin(userData))
-                navigate('/')            }
+                if (userData) dispatch(storeLogin({userData}))
+                navigate('/')
+            }
         } catch (error) {
             setError(error.message)
         } finally {
@@ -56,7 +58,7 @@ function Login() {
                             label="Email: "
                             placeholder="Enter your email"
                             type="email"
-                            {...register("email", { 
+                            {...register("email", {
                                 required: true,
                                 validate: { // pattern
                                     matchPatern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||

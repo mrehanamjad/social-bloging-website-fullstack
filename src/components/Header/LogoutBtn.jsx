@@ -2,10 +2,10 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import authService from '../../appwrite/auth'
 import { logout } from '../../store/authSlice'
-import { FaSignOutAlt } from 'react-icons/fa'
+import { PiSignOutBold } from "react-icons/pi";
+import NavButton from './NavButton'
 
-
-function LogoutBtn({className}) {
+function LogoutBtn() {
 
   const dispach = useDispatch()
 
@@ -19,16 +19,7 @@ function LogoutBtn({className}) {
   }
 
 
-  return (
-    <button
-    className={`inline-bock px-5 mx-2 py-2 duration-200 flex  justify-center items-center gap-2 bg-red-500 rounded-3xl text-white ${className}`}
-      onClick={logoutHandler}
-    >
-      <FaSignOutAlt size={18} />
-      Logout
-      </button>
-   
-  )
+  return <NavButton item={{name:"Logout",slug:"/",icon:PiSignOutBold}} onClick={logoutHandler}/>
 }
 
 export default LogoutBtn

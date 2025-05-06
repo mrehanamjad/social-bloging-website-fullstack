@@ -9,6 +9,7 @@ import { Home, Login, Signup, AllPosts, AddPost, EditPost, Post, CategorizedPost
 import { AuthLayout } from './components/index.js'
 import SearchPage from './pages/SearchPage.jsx'
 import MyPosts from './pages/MyPosts.jsx'
+import UserSettings from './pages/UserSettings.jsx'
 
 
 const router = createBrowserRouter([
@@ -33,6 +34,15 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication={false}>
             <Signup />
+          </AuthLayout>
+        )
+      },
+      {
+        path: '/edit-user',
+        element: (
+          <AuthLayout authentication>
+            {" "}
+            <UserSettings />
           </AuthLayout>
         )
       },
