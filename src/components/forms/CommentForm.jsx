@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, InputArea } from './';
+import { Button, InputArea } from '..';
 import { IoMdSend } from 'react-icons/io';
 import { useForm } from 'react-hook-form';
-import appwriteCommentServices from '../appwrite/CommentConfig';
+import appwriteCommentServices from '../../appwrite/CommentConfig';
 import { useSelector } from 'react-redux';
 import { FaTimesCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';

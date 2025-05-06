@@ -8,14 +8,15 @@ import Button from './Button';
 import Input from './Input'
 import PostCard from './PostCard'
 import Select from './Select'
-import Login from "./Login";
-import Signup from './Signup'
-import RTE from "./RTE";
+import Login from "./forms/Login";
+import Signup from './forms/Signup'
+import RTE from "./forms/RTE";
 import AuthLayout from "./AuthLayout"; // we can import by any name if it is expoted default
-import PostForm from "./post-form/PostForm";
+import PostForm from "./forms/PostForm";
 import CardCarousel from "./CardCarousel";
 import Loader from "./Loader";
 import InputArea from "./InputArea";
-import CommentForm from "./CommentForm";
+import CommentForm from "./forms/CommentForm";
+import CategoryDropdown from "./CategoryDropdown";
 
-export { Header, Footer, Container, Logo, LogoutBtn, Button, Input, PostCard, Select, Login, Signup, RTE, AuthLayout, PostForm, CardCarousel, Loader, InputArea, CommentForm, NavButton }
+export { Header, Footer, Container, Logo, LogoutBtn, Button, Input, PostCard, Select, Login, Signup, RTE, AuthLayout, PostForm,CategoryDropdown, CardCarousel, Loader, InputArea, CommentForm, NavButton }

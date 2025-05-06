@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, Input } from './index'
-import authService from '../appwrite/auth'
+import { Button, Input } from '../index'
+import authService from '../../appwrite/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import {
     FaUser,
@@ -11,7 +11,7 @@ import {
     FaCheck,
     FaTimes
 } from 'react-icons/fa'
-import { login } from '../store/authSlice'
+import { login } from '../../store/authSlice'
 
 function UserSettingsForm() {
     const userData = useSelector(state => state.auth.userData) || [];

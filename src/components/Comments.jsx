@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { FiEdit2, FiMessageCircle } from "react-icons/fi";
 import { BsTrash2 } from "react-icons/bs";
 import { BiReply, BiSend } from "react-icons/bi";
-import CommentForm from "./CommentForm";
+import CommentForm from "./forms/CommentForm";
 
 function Comments({ postId }) {
   const [comments, setComments] = useState([]);

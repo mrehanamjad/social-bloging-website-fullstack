@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container } from '../components'
-import UserSettingsForm from '../components/UserSettingsForm'
+import UserSettingsForm from '../components/forms/UserSettingsForm'
 
 function UserSettings() {
   return (
