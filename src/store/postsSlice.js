@@ -4,11 +4,9 @@ const initialState = {
     lastAllPostId: null,
     allPostData: [],
     noMoreAllPosts: false,
-
     lastMyPostId: null,
     myPostData: [],
     noMoreMyPosts: false,
-
     categoryPosts: {},  // { "Technology": { data: [], lastId: null, noMore: false }, ... }
 };
 
@@ -45,6 +43,15 @@ const postsSlice = createSlice({
                 state.categoryPosts[category] = { data: [], lastId: null, noMore: false };
             }
             state.categoryPosts[category].noMore = true;
+        },
+        resetAll(state, action) {
+            state.allPostData = [];
+            state.lastAllPostId = null;
+            state.noMoreAllPosts = false;
+            state.myPostData = [];
+            state.lastMyPostId = null;
+            state.noMoreMyPosts = false;
+            state.categoryPosts = {};
         }
     }
 });
@@ -56,6 +63,7 @@ export const {
     setNoMoreMyPosts,
     setCategoryPosts,
     setNoMoreCategoryPosts,
+    resetAll,
 } = postsSlice.actions;
 
 export default postsSlice.reducer;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaChevronLeft, FaChevronRight, FaList,FaChevronDown } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
 

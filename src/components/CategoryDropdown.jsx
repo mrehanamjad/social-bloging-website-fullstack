@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { CategoryCardData } from "./CardCarousel";
+import { FaList,FaChevronDown } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function CategoryDropdown() {
   const [isOpen, setIsOpen] = useState(false);

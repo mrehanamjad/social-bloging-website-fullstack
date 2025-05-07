@@ -12,6 +12,7 @@ import {
   FaTag,
   FaSave,
 } from "react-icons/fa";
+import { resetAll } from "../../store/postsSlice";
 
 function PostForm({ post }) {
   const {
@@ -31,6 +32,7 @@ function PostForm({ post }) {
     },
   });
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
   const [previewImage, setPreviewImage] = useState(null);
@@ -63,7 +65,9 @@ function PostForm({ post }) {
           featuredImage: file ? file.$id : undefined,
           updatedOn: getCurrentDate(),
         });
+
         if (dbPost) {
+          dispatch(resetAll());
           navigate(`/post/${dbPost.$id}`);
         }
       } else {
@@ -79,7 +83,9 @@ function PostForm({ post }) {
             userId: userData.$id,
             author: userData.name,
           });
+
           if (dbPost) {
+            dispatch(resetAll());
             navigate(`/post/${dbPost.$id}`);
           }
         }
