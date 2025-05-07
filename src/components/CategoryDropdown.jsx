@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { CategoryCardData } from "./CardCarousel";
 
 function CategoryDropdown() {
